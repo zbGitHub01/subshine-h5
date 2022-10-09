@@ -1,5 +1,4 @@
 <template lang="pug">
-Header
 van-swipe.swipe(autoplay="5000" :show-indicators="false")
   van-swipe-item
     img.swipe-img(src="@/assets/images/banner1.png")
@@ -22,8 +21,6 @@ WalkLantern
     .card(v-for="item in latestList" :key="item.id")
       img(:src="item.picture")
       .desc {{ item.title }}
-ContactForm
-Footer
 </template>
 
 <script setup>

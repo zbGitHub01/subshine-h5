@@ -1,13 +1,13 @@
 <template lang="pug">
-header.header(:class="{fixed: !isBlock}")
+header.header(:class="{fixed: isBlock}")
   .logo
     img(src="@/assets/images/logo.png")
   .wap-nav
     van-icon(name="wap-nav")
+.block(v-if="isBlock")
 </template>
 
 <script setup>
-import {  } from 'vue'
 defineProps({
   isBlock: {
     type: Boolean,
@@ -24,14 +24,15 @@ defineProps({
   width: 100%;
   padding: 0 50px;
   height: 166px;
-  background-color: #162139;
+  position: absolute;
+  top: 0;
+  left: 0;
   box-sizing: border-box;
+  background-color: transparent;
+  z-index: 999;
   &.fixed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: transparent;
-    z-index: 999;
+    position: fixed;
+    background-color: #162139;
   }
 }
 .logo {
@@ -45,5 +46,8 @@ defineProps({
 .wap-nav {
   color: white;
   font-size: 72px;
+}
+.block {
+  height: 166px;
 }
 </style>
