@@ -7,7 +7,7 @@
   //    img(:src="imgGroups.group1[0]")
   //    img(:src="imgGroups.group1[1]")
   //    img(:src="imgGroups.group1[2]")
-  van-swipe.swipe(autoplay="7000" :show-indicators="false" :duration="7000" ref="swipe")
+  van-swipe.swipe(autoplay="7000" :show-indicators="false" :duration="7000" ref="swipe" :stop-propagation="false")
     van-swipe-item.marquee-item
       img(:src="imgGroups.group1[0]")
       img(:src="imgGroups.group1[1]")
@@ -20,7 +20,7 @@
       img(:src="imgGroups.group1[6]")
       img(:src="imgGroups.group1[7]")
       img(:src="imgGroups.group1[4]")
-  van-swipe.swipe(autoplay="5000" :show-indicators="false" :duration="5000" ref="swipe1")
+  van-swipe.swipe(autoplay="5000" :show-indicators="false" :duration="5000" ref="swipe1" :stop-propagation="false")
     van-swipe-item.marquee-item
       img(:src="imgGroups.group2[0]")
       img(:src="imgGroups.group2[1]")
@@ -33,7 +33,7 @@
       img(:src="imgGroups.group2[6]")
       img(:src="imgGroups.group2[7]")
       img(:src="imgGroups.group2[4]")
-  van-swipe.swipe(autoplay="7000" :show-indicators="false" :duration="7000" ref="swipe2")
+  van-swipe.swipe(autoplay="7000" :show-indicators="false" :duration="7000" ref="swipe2" :stop-propagation="false")
     van-swipe-item.marquee-item
       img(:src="imgGroups.group3[0]")
       img(:src="imgGroups.group3[1]")
