@@ -1,6 +1,7 @@
 <template lang="pug">
 .partner
   .title 部分行业合作客户
+  .text(v-if="props.isText") 东岸科技与全国30家头部消费金融机构及互联网金融公司建立良好合作关系，买断个人不良资产的债权，拥有海量个人不良资产数据。与全国各大AMC资产管理及各类金融机构达成战略合作，助力其在资产包购买方面精准定价，并且帮助他们实现高效运营。
   //.cooperation-marquee-wrap
   //  .marquee-item
   //    img(v-for="item in imgGroups.group1" :key="item" :src="item")
@@ -49,28 +50,34 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref, onMounted } from "vue";
+// 是否展示文字内容
+const props = defineProps({
+  isText: Boolean,
+});
 const imgGroups = reactive({
   group1: [],
   group2: [],
-  group3: []
-})
-const swipe = ref()
-const swipe1 = ref()
-const swipe2 = ref()
-const metaImages = import.meta.glob('./assets/cooperation-img*.png', { eager: true })
-let imgGroupIndex = 0
+  group3: [],
+});
+const swipe = ref();
+const swipe1 = ref();
+const swipe2 = ref();
+const metaImages = import.meta.glob("./assets/cooperation-img*.png", {
+  eager: true,
+});
+let imgGroupIndex = 0;
 Object.keys(metaImages).forEach((key, index) => {
   if (index % 8 === 0) {
-    imgGroupIndex++
+    imgGroupIndex++;
   }
-  imgGroups['group' + imgGroupIndex].push(metaImages[key].default)
-})
+  imgGroups["group" + imgGroupIndex].push(metaImages[key].default);
+});
 onMounted(() => {
-  swipe.value.next()
-  swipe1.value.next()
-  swipe2.value.next()
-})
+  swipe.value.next();
+  swipe1.value.next();
+  swipe2.value.next();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -80,7 +87,7 @@ onMounted(() => {
     text-align: center;
     font-size: 36px;
     font-weight: bold;
-    color: #1A1F34;
+    color: #1a1f34;
     margin-bottom: 80px;
   }
 }
@@ -111,5 +118,16 @@ onMounted(() => {
   100% {
     transform: translateX(-2080px);
   }
+}
+.text {
+  width: 670px;
+  height: 130px;
+  font-size: 20px;
+  font-family: SourceHanSansCN-Regular, SourceHanSansCN;
+  font-weight: 400;
+  color: #3c4057;
+  line-height: 26px;
+  margin: 0 auto 60px auto;
+  text-align: justify;
 }
 </style>

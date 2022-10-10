@@ -1,6 +1,5 @@
 <template lang="pug">
-//- 头部
-//- Header
+.aside0
 van-tabs(v-model:active="active"  type="card" scrollspy sticky)
     van-tab(title="智慧处置") 
         .aside1
@@ -9,29 +8,29 @@ van-tabs(v-model:active="active"  type="card" scrollspy sticky)
             .img_sub1
     van-tab(title="处置优势")
         .aside2
-            .title(style="margin-top:80px; margin-bottom:50px") 由资产走向用户 关注长线收益
+            .title.title1 由资产走向用户 关注长线收益
             .img_sub2
     van-tab(title="勾销债务管理") 
         .aside3
-            .title(style="margin-bottom:80px") 传统处置痛点
+            .title.title2 传统处置痛点
             .img_sub3
         .aside4
-            .title(style="margin-bottom:60px") 勾销解决方案
+            .title.title3 勾销解决方案
             .img_sub4
         .aside5
-            .title(style="padding-top:30px; margin-bottom:40px") 勾销成果展示
+            .title.title4 勾销成果展示
             .img_sub5
-            div(style="text-align: center;width: 100%; display: flex; align-items: center; justify-content: center")
-                span(style="font-size: 26px; font-family: SourceHanSansCN-Regular, SourceHanSansCN; font-weight: 400; color: #3988FF; line-height: 39px;") 累计回款户数
-                span(style="font-size: 40px; font-family: SourceHanSansCN-Medium, SourceHanSansCN; font-weight: 500; color: #3988FF; line-height: 60px; margin-left:16px") 8900+
+            .text
+                span.sp1 累计回款户数
+                span.sp2 8900+
         .aside6
-            .title(style="margin-bottom:80px") 用户转化路径
+            .title.title5 用户转化路径
             .img_sub6
         .aside7
-            .title(style="margin-top:120px; margin-bottom:60px") 用户反馈案例
+            .title.title6 用户反馈案例
             .img_sub7
         .aside8
-            .title(style="margin-top:120px; margin-bottom:78px") 部分页面展示
+            .title.title7 部分页面展示
             .img_sub8
 </template>
 
@@ -65,6 +64,35 @@ const active = ref(0);
 }
 </style>
 <style lang="scss" scoped>
+.text {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .sp1 {
+    font-size: 26px;
+    font-family: SourceHanSansCN-Regular, SourceHanSansCN;
+    font-weight: 400;
+    color: #3988ff;
+    line-height: 39px;
+  }
+  .sp2 {
+    font-size: 40px;
+    font-family: SourceHanSansCN-Medium, SourceHanSansCN;
+    font-weight: 500;
+    color: #3988ff;
+    line-height: 60px;
+    margin-left: 16px;
+  }
+}
+.aside0 {
+  margin: 0 auto;
+  width: 750px;
+  height: 600px;
+  background: url("@/assets/business/header-bg.png") no-repeat;
+  background-size: 100% 100%;
+}
 .title {
   margin-top: 100px;
   margin-bottom: 30px;
@@ -74,6 +102,34 @@ const active = ref(0);
   font-weight: bold;
   color: #1a1f34;
   line-height: 54px;
+}
+.title1 {
+  margin-top:80px; 
+  margin-bottom:50px;
+}
+.title2 {
+  margin-top:100px; 
+  margin-bottom:80px;
+}
+.title3 {
+  margin-top:100px; 
+  margin-bottom:60px;
+}
+.title4 {
+  margin-top:80px; 
+  margin-bottom:40px;
+}
+.title5 {
+  margin-top:100px; 
+  margin-bottom:80px;
+}
+.title6 {
+  margin-top:100px; 
+  margin-bottom:60px;
+}
+.title6 {
+  margin-top:120px; 
+  margin-bottom:78px;
 }
 .content {
   font-size: 20px;
@@ -133,7 +189,7 @@ const active = ref(0);
   height: 876px;
   background: #f4f7fc;
   margin-top: 100px;
-  //   overflow: hidden;
+  overflow: hidden;
   .img_sub5 {
     width: 590px;
     height: 590px;
@@ -169,7 +225,7 @@ const active = ref(0);
     height: 417px;
     background: url("@/assets/business/huohou8.png") no-repeat;
     background-size: 100% 100%;
-    margin: 0 auto;
+    margin: 0 auto 98px auto;
   }
 }
 </style>

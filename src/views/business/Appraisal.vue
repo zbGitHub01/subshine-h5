@@ -1,7 +1,5 @@
 <template lang="pug">
-//- 头部
-//- Header
-
+.aside0
 .item(v-for="(item,index) in items" :key="index" :style="{ backgroundImage:`url('${item.img}')`}") 
     .title_sub {{item.title}}
     .content
@@ -11,14 +9,12 @@
 .title 服务优势
 .aside2
 .aside3
-    .title(style="margin-top:80px; margin-bottom:30px;") 报告案例
+    .title1 报告案例
     p.content 可视化的数据评估报告后台，直观看到报告解读及分析，协助债权人全面洞悉资产包情况，全面提升用户交互体验。
     .img_sub
-//- 底部
 </template>
 
 <script setup>
-// import Header from '@/components/Header/index.vue'
 import { ref } from "vue";
 import zaichanpinggu1 from "@/assets/business/zichanpinggu1.png";
 import zaichanpinggu2 from "@/assets/business/zichanpinggu2.png";
@@ -48,6 +44,14 @@ const items = ref([
 </script>
 
 <style lang="scss" scoped>
+.aside0 {
+  margin: 0 auto;
+  width: 750px;
+  height: 600px;
+  background: url("@/assets/business/header-bg.png") no-repeat;
+  background-size: 100% 100%;
+  margin-bottom: 100px;
+}
 .item {
   box-sizing: border-box;
   width: 670px;
@@ -66,6 +70,7 @@ const items = ref([
     font-weight: 500;
     color: #ffffff;
     line-height: 48px;
+    margin-bottom: 20px;
   }
   .content {
     font-size: 22px;
@@ -79,6 +84,16 @@ const items = ref([
 .title {
   margin-top: 120px;
   margin-bottom: 80px;
+  text-align: center;
+  font-size: 36px;
+  font-family: SourceHanSansCN-Bold, SourceHanSansCN;
+  font-weight: bold;
+  color: #1a1f34;
+  line-height: 54px;
+}
+.title1 {
+  margin-top: 80px;
+  margin-bottom: 30px;
   text-align: center;
   font-size: 36px;
   font-family: SourceHanSansCN-Bold, SourceHanSansCN;
@@ -102,10 +117,14 @@ const items = ref([
 }
 .aside3 {
   width: 750px;
-  height: 1059px;
+  height: 949px;
   background: #f4f7fc;
   overflow: hidden;
   margin-top: 100px;
+  .title {
+    margin-top: 120px;
+    margin-bottom: 80px;
+  }
   .content {
     font-size: 20px;
     font-family: SourceHanSansCN-Regular, SourceHanSansCN;

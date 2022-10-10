@@ -1,40 +1,66 @@
 <template lang="pug">
-//- 头部
-//- Header
-.title 智能资产处置的核心大脑
+.aside0
+.title.title0 智能资产处置的核心大脑
 .content 东岸须弥系统由东岸科技自主研发，具有知识产权的全流程、智能化、标准化的系统，支持手机APP，电脑端等多终端，任意地域，全时段覆盖。该系统涵盖3大系统和2大工具，从资产评估、用户画像分析、处置方式择优评估、分案、处置过程全监控、调解、回收数据分析等进行全方位数字化运营管理，运用科技力量提高处置效能。
 .aside1.aside
 .aside2
- .title(style="margin-top:80px; margin-bottom:30px") 须弥平台（处置业务管理平台CPC)
+ .title.title1 须弥平台（处置业务管理平台CPC)
  .content CPC平台为东岸须弥系统中的核心业务管理、作业操作系统，整合了“业务+行为+数字”能力，统一数据管理，可输出精准个性化处置方案。
  .img_sub1.aside
-.title(style="margin-bottom:80px") 多闻系统（智能质检系统QIS)
+.title.title2 多闻系统（智能质检系统QIS)
 .aside3.aside
 .aside4
-  .title(style="margin-top:80px; margin-bottom:60px") 持国系统（策略模型系统SMS)
+  .title.title3 持国系统（策略模型系统SMS)
   .img_sub2.aside
-.title(style="margin-bottom:80px") 增长工具（工作定制手机WCC)
+.title.title4 增长工具（工作定制手机WCC)
 .aside5.aside
-.title(style="margin-top:120px; margin-bottom:30px") 广目机器人（智能联络机器人RPA)
-.content(style="margin-bottom:28px") 东岸科技智能机器人通过智能呼叫系统、AI机器人及智能质检等多种科技处置手段，实现智能精细化分案、智能化外呼，流程达到100%质检合规等。
+.title.title5 广目机器人（智能联络机器人RPA)
+.content.content1 东岸科技智能机器人通过智能呼叫系统、AI机器人及智能质检等多种科技处置手段，实现智能精细化分案、智能化外呼，流程达到100%质检合规等。
 .aside6.aside
-//- 底部
 </template>
 
 <script setup>
-// import Header from '@/components/Header/index.vue'
 </script>
 
 <style lang="scss" scoped>
+.aside0 {
+  margin: 0 auto;
+  width: 750px;
+  height: 600px;
+  background: url("@/assets/business/header-bg.png") no-repeat;
+  background-size: 100% 100%;
+}
 .title {
   font-size: 36px;
   font-family: SourceHanSansCN-Bold, SourceHanSansCN;
   font-weight: bold;
   color: #1a1f34;
   line-height: 54px;
+  text-align: center;
+}
+.title0 {
   margin-top: 100px;
   margin-bottom: 30px;
-  text-align: center;
+}
+.title1 {
+  margin-top: 80px;
+  margin-bottom: 30px;
+}
+.title2 {
+  margin-top: 100px;
+  margin-bottom: 80px;
+}
+.title3 {
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
+.title4 {
+  margin-top: 100px;
+  margin-bottom: 80px;
+}
+.title5 {
+  margin-top: 120px;
+  margin-bottom: 30px;
 }
 .content {
   font-size: 20px;
@@ -44,6 +70,9 @@
   line-height: 26px;
   margin: 0 40px 60px 40px;
   text-align: justify;
+}
+.content1 {
+  margin-bottom: 28px;
 }
 .aside {
     margin: 0 auto;
@@ -93,7 +122,7 @@
   height: 658px;
   background: url("@/assets/business/xumi5.png") no-repeat;
   background-size: 100% 100%;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 .aside6 {
   width: 671px;

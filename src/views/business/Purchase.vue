@@ -1,28 +1,32 @@
 <template lang="pug">
-//- 头部
-//- Header
+.aside0
 .title 国资背景
 .aside1
     .paragraph.paragraph1 东岸科技2020年引入国资入股，成为国资加持的集团性控股平台。现已获得水南城新区投资发展有限公司(国有独资)及旗下丽水市绿色产业发展基金有限公司的2轮融资。
 .title 3年+资产处置运作经验
 .aside2
-    .paragraph.paragraph2 东岸科技通过3年多的个贷不良资产管理，公司个人不良资产管理规模超200亿，沉淀用户数据超430万。免除利息罚息超过42亿，帮助了32万多年轻人完成了债务还款与个人成长。
+    .paragraph.paragraph2 东岸科技通过3年多的个贷不良资产管理，公司个人不良资产管理规模超200亿，沉淀用户数据超430万。免除利息罚息超42亿，帮助32万多年轻人完成了债务还款与个人成长。
 .title_sub
     .kuai
     .sub_title 完整的分析链路
     .kuai
 .aside3
-.title(style="margin:120px 0px 30px 0px") 部分行业合作客户
-.aside4 东岸科技与全国30家头部消费金融机构及互联网金融公司建立良好合作关系，买断个人不良资产的债权，拥有海量个人不良资产数据。与全国各大AMC资产管理及各类金融机构达成战略合作，助力其在资产包购买方面精准定价，并且帮助他们实现高效运营。
-//- 底部
+WalkLantern(:isText="true")
+.kong
 </template>
 
 <script setup>
-// import Header from '@/components/Header/index.vue'
-
+import WalkLantern from '@/components/WalkLantern/index.vue'
 </script>
 
 <style lang="scss" scoped>
+.aside0 {
+  margin: 0 auto;
+  width: 750px;
+  height: 600px;
+  background: url("@/assets/business/header-bg.png") no-repeat;
+  background-size: 100% 100%;
+}
 .title {
   margin-top: 100px;
   margin-bottom: 80px;
@@ -47,11 +51,12 @@
   height: 260px;
   background: url("@/assets/business/zichanshougou1.png") no-repeat;
   background-size: 100% 100%;
-  padding: 28px 0 0 0;
+  overflow: hidden;
   .paragraph1 {
     width: 317px;
     height: 206px;
     margin-left: 40px;
+    margin-top: 25px;
   }
 }
 .aside2 {
@@ -60,17 +65,18 @@
   height: 300px;
   background: url("@/assets/business/zichanshougou2.png") no-repeat;
   background-size: 100% 100%;
-  padding: 72px 0 0 0;
+  overflow: hidden;
   .paragraph2 {
     width: 309px;
     height: 199px;
     margin-left: 323px;
+    margin-top: 65px;
   }
 }
 .title_sub {
   display: flex;
   margin: 80px auto 60px auto;
-  width: 300px;
+  width: 260px;
   height: 30px;
   align-items: center;
   .kuai {
@@ -94,15 +100,7 @@
   background: url("@/assets/business/zichanshougou3.png") no-repeat;
   background-size: 100% 100%;
 }
-.aside4 {
-  width: 670px;
-  height: 130px;
-  font-size: 20px;
-  font-family: SourceHanSansCN-Regular, SourceHanSansCN;
-  font-weight: 400;
-  color: #3c4057;
-  line-height: 26px;
-  margin: 0 auto 60px auto;
-  text-align: justify;
+.kong {
+    height:80px;
 }
 </style>

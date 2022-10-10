@@ -1,24 +1,28 @@
 <template lang="pug">
-//- 头部
-//- Header
+.aside0
 .aside1
     .title CPE能力模型
     .img_sub1
-.title(style="margin-bottom:80px") 机构能力模型
+.title.title1 机构能力模型
 .aside2
 .title_sub
     .kuai
     .sub_title CPE管理平台
     .kuai
 .aside3
-//- 底部
 </template>
 
 <script setup>
-// import Header from '@/components/Header/index.vue'
 </script>
 
 <style lang="scss" scoped>
+.aside0 {
+  margin: 0 auto;
+  width: 750px;
+  height: 600px;
+  background: url("@/assets/business/header-bg.png") no-repeat;
+  background-size: 100% 100%;
+}
 .title {
   font-size: 36px;
   font-family: SourceHanSansCN-Bold, SourceHanSansCN;
@@ -28,6 +32,9 @@
   margin-top: 100px;
   margin-bottom: 65px;
   text-align: center;
+}
+.title1 {
+  margin-bottom:80px;
 }
 .content {
   font-size: 20px;
@@ -42,6 +49,7 @@
   width: 750px;
   height: 656px;
   background: #f4f7fc;
+  overflow:hidden;
   .img_sub1 {
     width: 690px;
     height: 404px;
@@ -60,8 +68,7 @@
 .title_sub {
   display: flex;
   margin: 80px auto 60px auto;
-//   margin:
-//   width: 300px;
+  width: 230px;
   height: 30px;
   align-items: center;
   .kuai {

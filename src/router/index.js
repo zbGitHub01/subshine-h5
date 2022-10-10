@@ -52,7 +52,7 @@ const routes = [
         path: "/news",
         name: "News",
         component: () => import("@/views/news/index.vue"),
-        meta: { title: "新闻资讯" },
+        meta: { title: "新闻资讯", hiddenInput: true },
       },
       {
         path: "/news-detail",
