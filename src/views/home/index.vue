@@ -10,7 +10,8 @@ van-swipe.swipe(autoplay="5000" :show-indicators="false")
     .item(v-for="(item, index) in items" :key="index")
       img(:src="item.icon")
       .label {{item.label}}
-  img.decor(src="@/assets/images/decor-bg.png")
+  .decor
+    img(src="@/assets/images/decor-bg1.png")
 .aside
   .title 数字科技助力青年成长
   p.paragraph 东岸科技是一家国有参股的集团公司，是一家以金融数字科技为核心领域，以资产管理为应用场景，以430万用户大数据为依托的科技型企业。面向银行、AMC、持牌小贷机构等上游客户，东岸科技提供不良资产处置管理、资产评估定价、一体化数字决策处置系统等服务，用数字科技的时段，深化个贷不良行业数智化转型，重塑资产管理的新模式。同时，东岸科技为下游需要帮助的阶段性债务受压青年输出成长方案。截止目前，东岸科技通过首创勾销债务管理平台、成立调解中心、设立“青年成长阳光工程”等方式，成功帮助全国31万+年青人摆脱债务危机，并为其提供教育、就业等帮扶实现全面成长，助力他们更好地回归经济社会发展的正常轨道。
@@ -25,15 +26,12 @@ WalkLantern
 
 <script setup>
 import { ref } from 'vue'
-import Header from '@/components/Header/index.vue'
 import bushSystemIcon1 from '@/assets/images/bush-system-icon1.png'
 import bushSystemIcon2 from '@/assets/images/bush-system-icon2.png'
 import bushSystemIcon3 from '@/assets/images/bush-system-icon3.png'
 import bushSystemIcon4 from '@/assets/images/bush-system-icon4.png'
 import bushSystemIcon5 from '@/assets/images/bush-system-icon5.png'
 import WalkLantern from '@/components/WalkLantern/index.vue'
-import ContactForm from '@/components/ContactForm/index.vue'
-import Footer from '@/components/Footer/index.vue'
 
 import http from '@/utils/http'
 const fetch = async () => {
@@ -122,7 +120,16 @@ fetch()
 .decor {
   width: 643px;
   height: 522px;
+  position: relative;
+  background: url("@/assets/images/decor-bg.png") no-repeat;
+  background-size: 100% 100%;
   margin-top: 100px;
+  img {
+    width: 539px;
+    height: 362px;
+    margin: 85px 51px 75px 53px;
+    animation: move 8s linear infinite;
+  }
 }
 .aside {
   height: 602px;
@@ -180,6 +187,18 @@ fetch()
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
+  }
+}
+@-webkit-keyframes move {
+  25% {
+    transform: translateY(-10px);
+  }
+  50%,
+  100% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(10px);
   }
 }
 </style>
