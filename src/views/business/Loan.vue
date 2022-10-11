@@ -32,10 +32,13 @@ van-tabs(v-model:active="active"  type="card" scrollspy sticky)
         .aside8
             .title.title7 部分页面展示
             .img_sub8
+        WalkBrand
+          
 </template>
 
 <script setup>
 import { ref } from "vue";
+import WalkBrand from "@/components/WalkBrand/index.vue";
 const active = ref(0);
 </script>
 

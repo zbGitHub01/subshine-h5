@@ -10,7 +10,7 @@ van-pull-refresh(v-model="refreshing" @refresh="onRefresh")
                     span.item-name.color-hover {{ item.title }}
                     span.item-desc {{item.intro}}
                     div(style="display: flex; justify-content:space-between;")
-                        span(style="color:#6f738c").color-6f738c {{item.time}}
+                        span(style="color:#6f738c").color-6f738c {{(item.time || "").trim().split(/\s+/).shift()}}
                         .color-hover(style="position: relative")
                             span.item-detail 查看详情
 </template>
@@ -18,54 +18,50 @@ van-pull-refresh(v-model="refreshing" @refresh="onRefresh")
 <script setup>
 import { ref } from "vue";
 import http from "@/utils/http";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const newsList = ref([]);
 const loading = ref(false);
 const finished = ref(false);
 const refreshing = ref(false);
+
+// 下拉刷新新闻列表
 const params = {
-    page: 0,
-    pageSize: 10,
-  }
+  page: 0,
+  pageSize: 10,
+};
 const onLoad = async () => {
   // 异步更新数据
   params.page++;
   const { code, data } = await http.get("/api/article/findPage", params);
   if (code === 200) {
-    newsList.value.push(...data.data)
+    newsList.value.push(...data.data);
+    console.log(data);
   }
-    // 加载状态结束
-    loading.value = false;
-
-    // 数据全部加载完成
-    if (newsList.value.length >= data.total) {
-      finished.value = true;
-    }
+  // 加载状态结束
+  loading.value = false;
+  // 数据全部加载完成
+  if (newsList.value.length >= data.total) {
+    finished.value = true;
+  }
 };
 const onRefresh = () => {
-      // 清空列表数据
-      finished.value = false;
+  // 清空列表数据
+  finished.value = false;
+  // 重新加载数据，将 loading 设置为 true，表示处于加载状态
+  loading.value = true;
+  onLoad();
+};
 
-      // 重新加载数据
-      // 将 loading 设置为 true，表示处于加载状态
-      loading.value = true;
-      onLoad();
-    };
-
-// 新闻资讯列表获取
-// const newsList = ref([]);
-// const getNewsList = async () => {
-//   const { code, data } = await http.get("/api/article/findPage", {
-//     page: 1,
-//     pageSize: 10,
-//   });
-//   if (code === 200) {
-//     newsList.value = data.data;
-//     console.log(data);
-//   }
-// };
-// getNewsList();
+// 跳转新闻详情
+const onDetail = (id) => {
+  router.push({ path: "/news-detail", query: { id } });
+};
 </script>
 <style lang="scss" scoped>
+:deep(.van-cell) {
+  padding: 0 !important;
+}
 .aside0 {
   margin: 0 auto;
   width: 750px;
@@ -102,10 +98,18 @@ const onRefresh = () => {
     text-align: justify;
     .item-name {
       width: 390px;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      // white-space: nowrap;
+      // text-overflow: -o-ellipsis-lastline;
+      text-overflow: -o-ellipsis-lastline;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
-      text-overflow: -o-ellipsis-lastline;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+
       line-height: 36px;
       font-size: 28px;
       font-weight: 500;
@@ -144,8 +148,9 @@ const onRefresh = () => {
   position: absolute;
   width: 0px;
   height: 0px;
-  top: 3px;
-  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(100% + 5px);
   border-top: 7px solid transparent;
   border-left: 6px solid #3c4057;
   border-bottom: 7px solid transparent;

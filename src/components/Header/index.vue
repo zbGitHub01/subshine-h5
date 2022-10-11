@@ -31,17 +31,17 @@ const menuList = ref([
     label: '业务体系',
     path: null,
     children: [
-      { label: '资产收购', path: '/home6' },
-      { label: '数据服务', path: '/home7' },
-      { label: '须弥系统', path: '/home8' },
-      { label: '资产评估服务', path: '/home9' },
-      { label: '贷后全流程服务', path: '/home10' }
+      { label: '资产收购', path: '/purchase' },
+      { label: '数据服务', path: '/services' },
+      { label: '须弥系统', path: '/sumeru' },
+      { label: '资产评估服务', path: '/appraisal' },
+      { label: '贷后全流程服务', path: '/loan' }
     ]
   },
-  { label: '新闻资讯', path: '/home2' },
-  { label: '债务查询', path: '/home3' },
-  { label: '关于东岸', path: '/home4' },
-  { label: '联系我们', path: '/home5' }
+  { label: '新闻资讯', path: '/news' },
+  { label: '债务查询', path: '/debt' },
+  { label: '关于东岸', path: '/about' },
+  { label: '联系我们', path: '/contact' }
 ])
 const expanded = ref(false)
 

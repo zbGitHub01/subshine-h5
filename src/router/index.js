@@ -40,7 +40,7 @@ const routes = [
         path: "/services",
         name: "Services",
         component: () => import("@/views/business/Services.vue"),
-        meta: { title: "服务机构能力评估" },
+        meta: { title: "数据服务" },
       },
       {
         path: "/sumeru",
@@ -58,7 +58,7 @@ const routes = [
         path: "/news-detail",
         name: "NewsDetail",
         component: () => import("@/views/news/Detail.vue"),
-        meta: { title: "新闻详情" },
+        meta: { title: "新闻详情",fixed:true, hiddenInput: true },
       },
       {
         path: "/debt",
@@ -76,7 +76,7 @@ const routes = [
         path: "/contact",
         name: "Contact",
         component: () => import("@/views/contact/index.vue"),
-        meta: { title: "联系我们" },
+        meta: { title: "联系我们", hiddenInput: true },
       },
     ],
   },
