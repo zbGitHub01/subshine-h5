@@ -32,7 +32,7 @@ van-tabs(v-model:active="active"  type="card" scrollspy sticky)
         .aside8
             .title.title7 部分页面展示
             .img_sub8
-        WalkBrand
+        WalkBrand(style="padding-bottom: 50px")
           
 </template>
 
@@ -59,6 +59,7 @@ const active = ref(0);
   font-family: SourceHanSansCN-Regular, SourceHanSansCN;
   font-weight: 400;
   line-height: 36px;
+  background: #F4F7FC;
 }
 .van-tabs--card {
   .van-tabs__wrap {

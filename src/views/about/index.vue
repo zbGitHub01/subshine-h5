@@ -53,6 +53,7 @@ const active = ref(0);
   font-family: SourceHanSansCN-Regular, SourceHanSansCN;
   font-weight: 400;
   line-height: 36px;
+  background: #F4F7FC;
 }
 .van-tabs--card {
   .van-tabs__wrap {
@@ -95,7 +96,7 @@ const active = ref(0);
   color: #3c4057;
   line-height: 32px;
 }
-.content {
+.content1 {
   margin-bottom: 100px;
 }
 .aside1 {
@@ -111,9 +112,9 @@ const active = ref(0);
 .aside2 {
   overflow: hidden;
   .img_sub2 {
-    width: 730px;
-    height: 870px;
-    background: url("@/assets/about/about2.jpg") no-repeat;
+    width: 690px;
+    height: 816px;
+    background: url("@/assets/about/about2.png") no-repeat;
     background-size: 100% 100%;
     margin: 0 auto;
   }
@@ -121,16 +122,16 @@ const active = ref(0);
 .aside3 {
   overflow: hidden;
   .img_sub3 {
-    width: 730px;
-    height: 1230px;
-    background: url("@/assets/about/about3.jpg") no-repeat;
+    width: 694px;
+    height: 1172px;
+    background: url("@/assets/about/about3.png") no-repeat;
     background-size: 100% 100%;
     margin: 0 auto;
   }
   .img_sub4 {
-    width: 730px;
-    height: 1700px;
-    background: url("@/assets/about/about4.jpg") no-repeat;
+    width: 690px;
+    height: 1661px;
+    background: url("@/assets/about/about4.png") no-repeat;
     background-size: 100% 100%;
     margin: 0 auto;
   }

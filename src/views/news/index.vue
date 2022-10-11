@@ -143,6 +143,9 @@ const onDetail = (id) => {
     border-bottom: 7px solid transparent;
   }
 }
+.item-detail {
+  padding: 15px;
+}
 .item-detail::after {
   content: "";
   position: absolute;
@@ -150,7 +153,7 @@ const onDetail = (id) => {
   height: 0px;
   top: 50%;
   transform: translateY(-50%);
-  left: calc(100% + 5px);
+  left: calc(100% + -8px);
   border-top: 7px solid transparent;
   border-left: 6px solid #3c4057;
   border-bottom: 7px solid transparent;
