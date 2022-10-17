@@ -1,7 +1,7 @@
 <template lang="pug">
 .title {{detailData.title}}
 .title1
-    span {{(detailData.time || "").trim().split(/\s+/).shift()}} 
+    span {{(detailData.time || "").trim().split(/\s+/).shift()}}
     span.sp 来源：东岸资产
 .xian
 .news-detail-content(v-html="detailData.html")
@@ -34,7 +34,6 @@ watch(
     const { code, data } = await http.get("/api/article/findById", { id });
     if (code === 200) {
       detailData.value = data;
-      console.log(data);
     }
   },
   { immediate: true }

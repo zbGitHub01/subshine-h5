@@ -7,7 +7,7 @@ van-swipe.swipe(autoplay="5000" :show-indicators="false")
 .bush-system-wrap
   .title 东岸业务体系
   .items
-    .item(v-for="(item, index) in items" :key="index")
+    .item(v-for="(item, index) in items" :key="index" @click="goPage(item)")
       img(:src="item.icon")
       .label {{item.label}}
   .decor
@@ -26,6 +26,7 @@ WalkLantern
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import bushSystemIcon1 from '@/assets/images/bush-system-icon1.png'
 import bushSystemIcon2 from '@/assets/images/bush-system-icon2.png'
 import bushSystemIcon3 from '@/assets/images/bush-system-icon3.png'
@@ -34,10 +35,10 @@ import bushSystemIcon5 from '@/assets/images/bush-system-icon5.png'
 import WalkLantern from '@/components/WalkLantern/index.vue'
 
 import http from '@/utils/http'
-const fetch = async () => {
-  const data = await http.get('/api/advantage/findByAll')
-  // console.log(data)
-}
+// const fetch = async () => {
+//   const data = await http.get('/api/advantage/findByAll')
+//   // console.log(data)
+// }
 
 const latestList = ref([])
 const fetchLatestDevelop = async () => {
@@ -50,26 +51,36 @@ fetchLatestDevelop()
 const items = ref([
   {
     icon: bushSystemIcon1,
-    label: '资产收购'
+    label: '资产收购',
+    path: '/purchase'
   },
   {
     icon: bushSystemIcon2,
-    label: '数据服务'
+    label: '数据服务',
+    path: '/services'
   },
   {
     icon: bushSystemIcon3,
-    label: '须弥系统'
+    label: '须弥系统',
+    path: '/sumeru'
   },
   {
     icon: bushSystemIcon4,
-    label: '资产评估服务'
+    label: '资产评估服务',
+    path: '/appraisal'
   },
   {
     icon: bushSystemIcon5,
-    label: '贷后全流程服务'
+    label: '贷后全流程服务',
+    path: '/loan'
   }
 ])
-fetch()
+
+const router = useRouter()
+const goPage = (item) => {
+  router.push({ path: item.path })
+}
+
 </script>
 
 <style lang="scss" scoped>

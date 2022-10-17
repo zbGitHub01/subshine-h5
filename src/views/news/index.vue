@@ -36,7 +36,6 @@ const onLoad = async () => {
   const { code, data } = await http.get("/api/article/findPage", params);
   if (code === 200) {
     newsList.value.push(...data.data);
-    console.log(data);
   }
   // 加载状态结束
   loading.value = false;

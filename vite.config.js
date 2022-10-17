@@ -7,6 +7,7 @@ import { VantResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src')
@@ -56,8 +57,8 @@ export default defineConfig({
     hmr: true,
     proxy: {
       '/api': {
-        // target: 'http://192.168.0.74:9010',
-        target: 'http://www.donganzichan.cn',
+        target: 'https://test.dongancloud.com/',
+        // target: 'https://www.dongancloud.com',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '/api')
       }

@@ -13,14 +13,12 @@ import ContactForm from '@/components/ContactForm/index.vue'
 import Footer from '@/components/Footer/index.vue'
 
 const route = useRoute()
-console.log(route.meta)
 const isFixed = computed(() => {
   return !!route.meta.fixed
 })
 const hiddenInput = computed(() => {
   return !!route.meta.hiddenInput
 })
-console.log(isFixed)
 </script>
 
 <style scoped>
