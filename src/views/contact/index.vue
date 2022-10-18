@@ -90,15 +90,16 @@
       background-size: 100% 100%;
     }
   }
-}
-.content {
-  text-align: center;
-  font-size: 24px;
-  font-family: SourceHanSansCN-Regular, SourceHanSansCN;
-  font-weight: 400;
-  color: #3c4057;
-  line-height: 22px;
-  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  .content {
+    text-align: center;
+    font-size: 24px;
+    font-family: SourceHanSansCN-Regular, SourceHanSansCN;
+    font-weight: 400;
+    color: #3c4057;
+    line-height: 22px;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+  }
 }
 .gongzhonghao {
   width: 670px;
