@@ -76,13 +76,10 @@ const onDetail = async (type) => {
   margin: 26px 0 50px 0;
   padding: 0 40px;
   text-align: justify;
-
   font-size: 26px;
-  font-family: SourceHanSansCN-Regular, SourceHanSansCN;
   font-weight: 400;
   color: #3c4057;
-  line-height: 32px;
-
+  line-height: 1.3;
   img {
     max-width: 100% !important;
     height: auto !important;
@@ -93,7 +90,6 @@ const onDetail = async (type) => {
 <style lang="scss" scoped>
 .title {
   font-size: 32px;
-  font-family: SourceHanSansCN-Medium, SourceHanSansCN;
   font-weight: 500;
   color: #3988ff;
   line-height: 48px;
@@ -105,7 +101,6 @@ const onDetail = async (type) => {
   margin: 35px 0 29px 0;
   padding: 0 40px;
   font-size: 24px;
-  font-family: SourceHanSansCN-Regular, SourceHanSansCN;
   font-weight: 400;
   color: #6f738c;
   line-height: 36px;
@@ -127,7 +122,6 @@ const onDetail = async (type) => {
     width: 144px;
     height: 48px;
     font-size: 24px;
-    font-family: SourceHanSansCN-Regular, SourceHanSansCN;
     font-weight: 400;
     color: #3988ff;
     line-height: 36px;
