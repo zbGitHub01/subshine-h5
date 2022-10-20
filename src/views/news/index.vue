@@ -1,18 +1,19 @@
 <template lang="pug">
 .aside0
-.kong
-van-pull-refresh(v-model="refreshing" @refresh="onRefresh")
-    van-list(v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad")
-        van-cell(v-for="item in newsList" :key="item.id" @click="onDetail(item.id)")
-            .list-wrap
-                img.item-img(:src="item.picture" alt="新闻资讯")
-                .mr
-                    span.item-name.color-hover {{ item.title }}
-                    span.item-desc {{item.intro}}
-                    div(style="display: flex; justify-content:space-between;")
-                        span(style="color:#6f738c").color-6f738c {{(item.time || "").trim().split(/\s+/).shift()}}
-                        .color-hover(style="position: relative")
-                            span.item-detail 查看详情
+.aside
+  van-pull-refresh(v-model="refreshing" @refresh="onRefresh" style="background:#F4F7FC")
+      van-list(v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad")
+          van-cell(v-for="item in newsList" :key="item.id" @click="onDetail(item.id)")
+              .list-wrap
+                  img.item-img(:src="item.picture" alt="新闻资讯")
+                  .mr
+                      section
+                        span.item-name.color-hover {{ item.title }}
+                        span.item-desc {{item.intro}}
+                      div(style="display: flex; justify-content:space-between;line-height: 27px")
+                          span(style="color:#6f738c").color-6f738c {{(item.time || "").trim().split(/\s+/).shift()}}
+                          .color-hover(style="position: relative")
+                              span.item-detail 查看详情
 </template>
 
 <script setup>
@@ -61,6 +62,10 @@ const onDetail = (id) => {
 :deep(.van-cell) {
   padding: 0 !important;
 }
+.aside {
+  background: #f4f7fc;
+  padding: 60px 30px;
+}
 .aside0 {
   margin: 0 auto;
   width: 750px;
@@ -68,35 +73,39 @@ const onDetail = (id) => {
   background: url("@/assets/news/header-bg.png") no-repeat;
   background-size: 100% 100%;
 }
-.kong {
-  height: 60px;
-}
+
 .list-wrap {
+  box-sizing: border-box;
   width: 690px;
-  height: 230px;
+  height: 206px;
   background: #ffffff;
-  margin: 0 auto 30px auto;
   border: 1px solid #efefef;
   display: flex;
   align-items: center;
   cursor: pointer;
   .item-img {
-    width: 220px;
-    height: 170px;
+    width: 240px;
+    height: 146px;
+    margin: 30px 20px;
     display: block;
-    margin: 0 30px;
+    margin-right: 20px;
   }
   .mr {
-    // 再调?
+    box-sizing: border-box;
+    height: 100%;
     margin-right: 20px;
     font-size: 18px;
+    padding: 20px 0;
     display: flex;
     flex: 1;
+    width: 0;
     flex-direction: column;
     color: #3c4057;
-    text-align: justify;
+    // text-align: justify;
+    justify-content: space-between;
     .item-name {
       width: 390px;
+      height: 76px;
       // overflow: hidden;
       // text-overflow: ellipsis;
       // white-space: nowrap;
@@ -108,24 +117,25 @@ const onDetail = (id) => {
       -webkit-line-clamp: 2;
       line-clamp: 2;
       -webkit-box-orient: vertical;
-
       line-height: 36px;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 500;
-      font-family: SourceHanSansCN-Medium, SourceHanSansCN;
+      font-family: "SourceHanSansCN-Medium, SourceHanSansCN";
       color: #1a1f34;
     }
     .item-desc {
       width: 390px;
       line-height: 29px;
+      white-space: nowrap;
       overflow: hidden;
-      display: -webkit-box;
+      display: block;
       text-overflow: ellipsis;
       text-overflow: -o-ellipsis-lastline;
-      line-clamp: 2;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      margin: 6px 0 16px 0;
+      // line-clamp: 1;
+      // -webkit-line-clamp: 2;
+      // -webkit-box-orient: vertical;
+      // margin: 6px 0 16px 0;
+      margin-top: 16px;
       font-size: 20px;
       font-family: SourceHanSansCN-Regular, SourceHanSansCN;
       font-weight: 400;
@@ -133,7 +143,7 @@ const onDetail = (id) => {
     }
   }
 }
-// hover这也不太懂
+
 .color-hover:hover {
   color: #3988ff;
   .item-detail::after {
@@ -156,5 +166,9 @@ const onDetail = (id) => {
   border-top: 7px solid transparent;
   border-left: 6px solid #3c4057;
   border-bottom: 7px solid transparent;
+}
+
+.aside :deep(.van-cell) {
+  margin-bottom: 30px;
 }
 </style>

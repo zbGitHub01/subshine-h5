@@ -68,7 +68,8 @@
 .title_sub {
   display: flex;
   margin: 80px auto 60px auto;
-  width: 230px;
+  width: 100%;
+  justify-content: center;
   height: 30px;
   align-items: center;
   .kuai {
@@ -83,6 +84,7 @@
     font-weight: 500;
     color: #3988ff;
     line-height: 42px;
+    white-space: nowrap;
   }
 }
 .aside3 {
