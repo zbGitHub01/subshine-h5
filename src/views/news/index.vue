@@ -48,6 +48,7 @@ const onLoad = async () => {
 const onRefresh = () => {
   // 清空列表数据
   finished.value = false;
+  newsList.value = [];
   // 重新加载数据，将 loading 设置为 true，表示处于加载状态
   loading.value = true;
   // 重置页码
