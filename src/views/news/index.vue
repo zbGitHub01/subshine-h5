@@ -105,7 +105,7 @@ const onDetail = (id) => {
     justify-content: space-between;
     .item-name {
       width: 390px;
-      height: 76px;
+      // height: 76px;
       // overflow: hidden;
       // text-overflow: ellipsis;
       // white-space: nowrap;
