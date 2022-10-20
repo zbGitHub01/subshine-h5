@@ -1,7 +1,7 @@
 <template lang="pug">
 .aside0
 .aside
-  van-pull-refresh(v-model="refreshing" @refresh="onRefresh" style="background:#F4F7FC")
+  van-pull-refresh(v-model="loading" @refresh="onRefresh" style="background:#F4F7FC")
       van-list(v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad")
           van-cell(v-for="item in newsList" :key="item.id" @click="onDetail(item.id)")
               .list-wrap
@@ -50,6 +50,8 @@ const onRefresh = () => {
   finished.value = false;
   // 重新加载数据，将 loading 设置为 true，表示处于加载状态
   loading.value = true;
+  // 重置页码
+  params.page = 0;
   onLoad();
 };
 
