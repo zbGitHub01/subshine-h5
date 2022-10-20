@@ -1,7 +1,7 @@
 <template lang="pug">
 .aside0
 .aside
-  van-pull-refresh(v-model="loading" @refresh="onRefresh" style="background:#F4F7FC")
+  van-pull-refresh(v-model="refreshing" @refresh="onRefresh" style="background:#F4F7FC")
       van-list(v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad")
           van-cell(v-for="item in newsList" :key="item.id" @click="onDetail(item.id)")
               .list-wrap
@@ -45,7 +45,7 @@ const onLoad = async () => {
     finished.value = true;
   }
 };
-const onRefresh = () => {
+const onRefresh = async () => {
   // 清空列表数据
   finished.value = false;
   newsList.value = [];
@@ -53,7 +53,8 @@ const onRefresh = () => {
   loading.value = true;
   // 重置页码
   params.page = 0;
-  onLoad();
+  await onLoad();
+  refreshing.value = false;
 };
 
 // 跳转新闻详情
