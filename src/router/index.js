@@ -80,6 +80,43 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/sunshine",
+    redirect: "/sunshine/homePage",
+    component: () => import("@/views/sunshine/index.vue"),
+    children: [
+      {
+        path: "homePage",
+        name: "HomePage",
+        component: () => import("@/views/sunshine/homePage/index.vue"),
+      },
+      {
+        path: "details",
+        name: "Details",
+        component: () => import("@/views/sunshine/details/index.vue"),
+      },
+    ]
+  },
+  {
+    path: "/sunshine",
+    children: [
+      {
+        path: "intro",
+        name: "Intro",
+        component: () => import("@/views/sunshine/details/intro/index.vue"),
+      }
+    ]
+  },
+  {
+    path: "/sunshine",
+    children: [
+      {
+        path: "activity",
+        name: "Activity",
+        component: () => import("@/views/sunshine/details/activity/index.vue"),
+      }
+    ]
+  },
 ];
 
 const router = createRouter({
