@@ -10,7 +10,6 @@ const router = useRouter();
 const state = reactive({
 
 })
-console.log(list)
 
 </script>
 

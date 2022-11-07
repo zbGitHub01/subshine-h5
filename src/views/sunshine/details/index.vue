@@ -37,6 +37,11 @@ import { list } from '../tips/index';
     onLoad();
   };
 
+  // 活动跳转
+  const handleClick = () => {
+    router.push({name:'Activity'});
+  }
+
 </script>
 
 <template>
@@ -54,8 +59,14 @@ import { list } from '../tips/index';
             @load="onLoad"
           >
             <li v-for="item,index in dataList" :key="index">
-              <div :class="{'active': item.isActive}">
+              <div>
                 <img :src="item.bkgImg" v-lazy="item.bkgImg" >
+                <img 
+                  class="active" 
+                  src="../../../assets/sunshine/active_icon.png"
+                  v-if="item.isActive" 
+                  @click="handleClick"
+                />
               </div>
               <div>
                 <span>{{item.name}}</span><br/>
@@ -74,7 +85,9 @@ import { list } from '../tips/index';
 
 .border-content {
   width: 710px;
+  min-height: 1689px;
   margin: 0 auto;
+  margin-bottom: 40px;
   padding: 11px 0;
   background: #FFA651;
   border-radius: 20px;
@@ -113,6 +126,7 @@ import { list } from '../tips/index';
       list-style: none;
       overflow: scroll;
       li {
+        position: relative;
         width: 630px;
         height: 467px;
         div:first-child {
@@ -124,6 +138,14 @@ import { list } from '../tips/index';
           img {
             width: 100%;
             height: 100%;
+          }
+          .active {
+            cursor: pointer;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 92px;
+            height: 36px;
           }
           & + div span {
             display: inline-block;
@@ -153,17 +175,6 @@ import { list } from '../tips/index';
           opacity: 0.49;
           border: 1px solid #164
         }
-        .active::after {
-          content: '';
-          cursor: pointer;
-          display: inline-block;
-          position: absolute;
-          right: 0;
-          width: 92px;
-          height: 36px;
-          background: url('@/assets/sunshine/active_icon.png') no-repeat center;
-          background-size: 100% 100%;
-        }
       }
       & li:not(:last-child) {
         margin-top: 35px;
@@ -171,7 +182,7 @@ import { list } from '../tips/index';
     }
   }
 }
-::v-deep .van-list__finished-text {
+:deep .van-list__finished-text {
   height: 84px;
   font-size: 28px;
   font-family: PingFangSC-Regular, PingFang SC;

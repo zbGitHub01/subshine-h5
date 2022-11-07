@@ -95,6 +95,11 @@ const routes = [
         name: "Details",
         component: () => import("@/views/sunshine/details/index.vue"),
       },
+      {
+        path: "signup",
+        name: "Signup",
+        component: () => import("@/views/sunshine/details/sign/index.vue"),
+      },
     ]
   },
   {
