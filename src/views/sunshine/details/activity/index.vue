@@ -160,7 +160,7 @@ import { reactive, toRefs, onBeforeMount, onMounted } from 'vue'
     }
   }
 }
-:deep .fir-btn {
+:deep(.fir-btn) {
   width: 300px;
   height: 80px;
   background: rgba(0,157,141,0.08);
@@ -173,7 +173,7 @@ import { reactive, toRefs, onBeforeMount, onMounted } from 'vue'
     color: #009D8D;
   }
 }
-:deep .sec-btn {
+:deep(.sec-btn) {
   width: 300px;
   height: 80px;
   background: linear-gradient(270deg, #00BF92 0%, #009D8D 100%);

@@ -182,7 +182,7 @@ import { list } from '../tips/index';
     }
   }
 }
-:deep .van-list__finished-text {
+:deep(.van-list__finished-text) {
   height: 84px;
   font-size: 28px;
   font-family: PingFangSC-Regular, PingFang SC;

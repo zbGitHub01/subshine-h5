@@ -144,7 +144,7 @@ const VanDialog = Dialog.Component;
     }
   }
 }
-:deep .van-form {
+:deep(.van-form) {
   width: 630px;
   margin: 0 auto;
   .van-cell-group {
@@ -222,13 +222,13 @@ const VanDialog = Dialog.Component;
   }
 }
 }
-:deep .van-dialog__header {
+:deep(.van-dialog__header) {
   font-size: 36px;
   font-family: PingFang-SC-Bold, PingFang-SC;
   font-weight: bold;
   color: #009D8D;
 }
-:deep .van-dialog__content {
+:deep(.van-dialog__content) {
   height: 184px;
   font-size: 30px;
   font-family: PingFangSC-Regular, PingFang SC;
@@ -237,7 +237,7 @@ const VanDialog = Dialog.Component;
   text-align: center;
   line-height: 184px;
 }
-:deep .van-dialog__footer {
+:deep(.van-dialog__footer) {
   margin-bottom: 30px;
   button {
     width: 400px;

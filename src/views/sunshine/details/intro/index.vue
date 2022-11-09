@@ -91,11 +91,11 @@ import { reactive, toRefs, onBeforeMount, onMounted } from 'vue'
   }
 }
 
-:deep .van-nav-bar__content {
+:deep(.van-nav-bar__content) {
   height: 128px;
   background: #EEEEEE;
 }
-:deep .van-nav-bar__title {
+:deep(.van-nav-bar__title) {
   margin-left: 100px;
   height: 50px;
   font-size: 36px;
@@ -104,10 +104,10 @@ import { reactive, toRefs, onBeforeMount, onMounted } from 'vue'
   color: #333333;
   line-height: 50px;
 }
-:deep .van-nav-bar .van-icon {
+:deep(.van-nav-bar .van-icon) {
   color: #333333;;
 }
-:deep .van-nav-bar__arrow {
+:deep(.van-nav-bar__arrow) {
   font-weight: bold;
   font-size: 50px;
 }
