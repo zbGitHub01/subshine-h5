@@ -2,14 +2,43 @@
 <script setup>
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-
+import { sunshineStore } from '@/store/module/sunshine.js';
+import http from '@/utils/http';
+import { Toast } from 'vant';
+import 'vant/es/toast/style';
 import { tipsText, list } from '../tips/index';
+import defaultBkg from '@/assets/sunshine/default_bkg.png'; // 兜底背景图
 
-const router = useRouter();
+  const router = useRouter();
+  const state = reactive({
+    activitiesArr: [],
+  })
+  const store = sunshineStore();
+  
+  const getData = async() => {
+    Toast.loading('加载中...');
+    const data = await http.get('/api/activitiesConfig/getHomeActivitiesInfo');
+    Toast.clear()
+    if (data.code !== 200) {
+      Toast.fail(data.msg);
+    } else {
+      Object.values(data.data).forEach(item => {
+        // 判空赋默认图
+        if(Object.keys(item).length === 0) {
+          item.picture = defaultBkg;
+        }
+        state.activitiesArr.push(item);
+      })
+    }
+  }
+  
+  // 更多跳转
+  const goToDetail = val => {
+    store.currentType = val;
+    router.push({name:'Details'});
+  }
 
-const state = reactive({
-
-})
+  getData();
 
 </script>
 
@@ -19,13 +48,13 @@ const state = reactive({
   </div>
   <div class="border-content">
     <ul>
-      <li v-for="item,index in list" :key="index">
+      <li v-for="item,index in state.activitiesArr" :key="index">
         <div>
-          <span>{{item.title}}</span>
-          <span>更多</span>
+          <span>阳光工程项目</span>
+          <span @click="goToDetail(item.type)">更多</span>
         </div>
-        <div :style="`background: url(${item.bkgImg}) no-repeat center`">
-          <div>{{item.name}}</div>
+        <div :style="`background: url(${item.picture}) no-repeat center;background-size: 100% 100%;`">
+          <!-- <div></div> -->
         </div>
         <div v-if="index + 1 !== list.length"></div>
       </li>
@@ -99,7 +128,7 @@ div {
           content: '';
           position: absolute;
           display: inline-block;
-          top: 10px;
+          top: 12px;
           left: 60px;
           width: 14px;
           height: 14px;
@@ -116,22 +145,22 @@ div {
         height: 340px;
         margin-left: 48.5px;
         // background: url('@/assets/sunshine/linshi.png') no-repeat center;
-        background-size: 100%;
+        background-size: 100% 100%;
         line-height: 340px;
         div {
-        position: absolute;
-        display: flex;
-        display: -webkit-flex;
-        justify-content: center;
-        top: 25%;
-        width: 630px;
-        height: 112px;
-        background: #FFFFFF;
-        font-size: 72px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #333333;
-        opacity: 0.77;
+          position: absolute;
+          display: flex;
+          display: -webkit-flex;
+          justify-content: center;
+          top: 25%;
+          width: 630px;
+          height: 112px;
+          background: #FFFFFF;
+          font-size: 72px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #333333;
+          opacity: 0.77;
         }
     }
     & div:nth-child(3) {

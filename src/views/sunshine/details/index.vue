@@ -2,44 +2,65 @@
 <script setup>
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-
-import { list } from '../tips/index';
+import { sunshineStore } from '@/store/module/sunshine.js';
+import { Toast } from 'vant';
+import 'vant/es/toast/style';
+import http from '@/utils/http';
 
   const router = useRouter();
+  const state = reactive({
+    search: {
+      page: 0,
+      pageSize: 3,
+    }
+  })
 
-  const state = reactive({})
   const dataList = ref([]);
   const loading = ref(false);
   const finished = ref(false);
   const refreshing = ref(false);
 
-  const onLoad = () => {
-    setTimeout(() => {
-      if (refreshing.value) {
-        dataList.value = [];
-        refreshing.value = false;
-      }
-      dataList.value.push(...list)
-
+  const store = sunshineStore();
+  
+  const onLoad = async() => {
+    const { search }  = state;
+    search.page ++ ;
+    const dataS = {
+      ...search,
+      type: store.currentType,
+    }
+    const { code, data, msg } = await http.post("/api/activitiesConfig/list", dataS);
+    if (code !== 200) {
+      Toast.fail(msg);
+    } else {
+      dataList.value.push(...data.data);
       loading.value = false;
-      if (dataList.value.length >= 7) {
+      if (dataList.value.length >= data.total) {
         finished.value = true;
       }
-    }, 1000);
+    }
   };
-
   const onRefresh = () => {
     // 清空列表数据
     finished.value = false;
+    dataList.value = [];
     // 重新加载数据
     // 将 loading 设置为 true，表示处于加载状态
     loading.value = true;
+    state.search.page = 0;
     onLoad();
+    refreshing.value = false;
   };
 
   // 活动跳转
   const handleClick = () => {
-    router.push({name:'Activity'});
+    router.push({name:'Activity'})
+  }
+
+  // 跳转详情
+  const goToIntro = item => {
+    store.currentItem = item;
+    router.push({name: 'Intro'});
   }
 
 </script>
@@ -60,16 +81,16 @@ import { list } from '../tips/index';
           >
             <li v-for="item,index in dataList" :key="index">
               <div>
-                <img :src="item.bkgImg" v-lazy="item.bkgImg" >
+                <img :src="item.picture" v-lazy="item.picture" @click="goToIntro(item)">
                 <img 
                   class="active" 
                   src="../../../assets/sunshine/active_icon.png"
-                  v-if="item.isActive" 
+                  v-if="item.isApply===1" 
                   @click="handleClick"
                 />
               </div>
               <div>
-                <span>{{item.name}}</span><br/>
+                <span @click="goToIntro(item)">{{item.name}}</span><br/>
                 <span>{{item.createTime}}</span>
               </div>
               <div></div>
@@ -82,7 +103,6 @@ import { list } from '../tips/index';
 </template>
 
 <style lang="scss" scoped>
-
 .border-content {
   width: 710px;
   min-height: 1689px;

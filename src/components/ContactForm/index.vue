@@ -12,7 +12,7 @@
     van-button(type="primary" block native-type="submit") 提交
 </template>
 
-<script setup>
+<script setup> 
 import { reactive } from 'vue'
 import 'vant/es/notify/style'
 import 'vant/es/toast/style';
