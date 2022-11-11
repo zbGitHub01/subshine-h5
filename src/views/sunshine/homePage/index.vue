@@ -34,8 +34,7 @@ import defaultBkg from '@/assets/sunshine/default_bkg.png'; // 兜底背景图
   
   // 更多跳转
   const goToDetail = val => {
-    store.currentType = val;
-    router.push({name:'Details'});
+    router.push({name: 'Details', query: {type: val}});
   }
 
   getData();

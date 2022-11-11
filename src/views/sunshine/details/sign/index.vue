@@ -1,6 +1,10 @@
 <script setup>
-import { reactive, toRefs, onBeforeMount, onMounted, ref, computed } from 'vue'
+import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { Dialog } from 'vant';
+import http from '@/utils/http';
+import { Toast } from 'vant';
+import 'vant/es/toast/style';
 import 'vant/es/dialog/style';
 const VanDialog = Dialog.Component;
 
@@ -10,8 +14,8 @@ const VanDialog = Dialog.Component;
       phone: '',
       code: '',
       idCard: '',
-      workPlace: '',
-      nativePlace: '',
+      workAddress: '',
+      registerLocation: '',
       remark: '',
     },
     inputArr: [
@@ -41,17 +45,61 @@ const VanDialog = Dialog.Component;
       },
     ]
   })
+
+  const router = useRouter();
   const show = ref(false);
+  const codeTime = ref(59);
+  const phoneValidator = ref(false);
+  const isCodeTime = ref(false);
 
-  onBeforeMount(() => {})
-  onMounted(() => {})
+  // 提交成功后的确认按钮回调
+  const handleConfirm = () => {
+    router.push({name: 'Activity'});
+  }
 
-  const onSubmit = values => {
-    show.value = true;
+  // 发送验证码
+  const sendCode = async() => {
+    if(phoneValidator.value) {
+      const params = {
+        phone: state.form.phone
+      }
+      isCodeTime.value = true;
+      const res = await http.get("/api/activitiesApplicant/sendCode",params);
+      // 验证码倒计时
+      let interval = setInterval(() => {
+        if(codeTime.value > 0){
+          codeTime.value -- ;
+        } else {
+          codeTime.value = 59;
+          isCodeTime.value = false;
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+  }
+  // 提交表单
+  const onSubmit = async values => {
+    const { id: activitiesId } = JSON.parse(sessionStorage.getItem('currentActivity'));
+    const data = {
+      ...values,
+      activitiesId,
+    }
+    const res = await http.post("/api/activitiesApplicant/add",data);
+    if(res.code!==200) {
+      Toast.fail(msg);
+    } else {
+      show.value = true;
+    } 
+
   };
+   // 手机号格式校验 校验函数返回 true 表示校验通过，false 表示不通过
+   const validator = val => {
+    phoneValidator.value = /^1[3456789]\d{9}$/.test(val);
+    return phoneValidator.value;
+   };
+
   // 当前是否是文本域
-  const isTextarea = value => {
-    return value === 'remark';  }
+  const isTextarea = value => value === 'remark';
 </script>
 
 <template>
@@ -59,7 +107,7 @@ const VanDialog = Dialog.Component;
     <div class="content">
       <header>申请报名</header>
       <section>
-        <van-form @submit="onSubmit">
+        <van-form ref="form" @submit="onSubmit" >
           <van-cell-group 
             v-for="item,index in state.inputArr"
             :key="index" 
@@ -70,12 +118,14 @@ const VanDialog = Dialog.Component;
               :label="item.label"
               :rules="[
                 { required: true, message: `请填写${item.label}` },
-                // item.value==='phone'?{pattern: /^1[3456789]\d{9}$/, message: '手机号码格式错误！'}:
-                // item.value==='idCard'?{pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '身份证格式错误！'}:''
+                item.value==='phone'?{validator, message: '手机号码格式错误！'}:
+                item.value==='idCard'?{pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '身份证格式错误！'}:''
               ]"
             >
               <template #button>
-                <van-button v-if="item.value==='code'" size="small">发送验证码</van-button>
+                <van-button :disabled="isCodeTime" v-if="item.value==='code'" size="small" @click="sendCode">
+                  {{!isCodeTime?'发送验证码':codeTime}}
+                </van-button>
               </template>
             </van-field>
           </van-cell-group>
@@ -102,6 +152,7 @@ const VanDialog = Dialog.Component;
       v-model:show="show" 
       title="标题"
       theme="round-button"
+      @confirm="handleConfirm"
     >
       报名完成，等待人工审核
     </VanDialog>
@@ -147,6 +198,7 @@ const VanDialog = Dialog.Component;
 :deep(.van-form) {
   width: 630px;
   margin: 0 auto;
+  margin-bottom: 25px;
   .van-cell-group {
     margin: 0;
   }

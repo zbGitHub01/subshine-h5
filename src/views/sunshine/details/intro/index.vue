@@ -1,9 +1,17 @@
 <script setup>
+import { watch } from 'vue';
 import { sunshineStore } from '@/store/module/sunshine.js';
+import { useRouter } from 'vue-router';
 
+  const router = useRouter();
   const store = sunshineStore();
-  const onClickLeft = () => history.back();
 
+  watch(store.currentItem,(newVal,oldVal) => {
+    Object.keys(newVal).length < 1 ? history.back(): '' ;
+  }, {immediate: true, deep: true});
+
+  const onClickLeft = () => history.back();
+ 
 </script>
 
 <template>
@@ -16,7 +24,7 @@ import { sunshineStore } from '@/store/module/sunshine.js';
     <div class="content">
       <div>{{store.currentItem.name}}</div>
       <div>{{store.currentItem.createTime}} 发布</div>
-      <div>{{store.currentItem.html}}}</div>
+      <div v-html="store.currentItem.html"></div>
     </div>
   </div>
 </template>
@@ -24,6 +32,7 @@ import { sunshineStore } from '@/store/module/sunshine.js';
 
 .content {
   margin: 0 auto;
+  padding-bottom: 50px;
   width: 636px;
   min-height: 1454px;
   overflow: scroll;

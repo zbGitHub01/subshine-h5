@@ -1,13 +1,14 @@
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, reactive, onMounted, nextTick } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { sunshineStore } from '@/store/module/sunshine.js';
 import { Toast } from 'vant';
 import 'vant/es/toast/style';
 import http from '@/utils/http';
 
   const router = useRouter();
+  const route = useRoute();
   const state = reactive({
     search: {
       page: 0,
@@ -27,7 +28,7 @@ import http from '@/utils/http';
     search.page ++ ;
     const dataS = {
       ...search,
-      type: store.currentType,
+      type: route.query.type,
     }
     const { code, data, msg } = await http.post("/api/activitiesConfig/list", dataS);
     if (code !== 200) {
@@ -53,15 +54,32 @@ import http from '@/utils/http';
   };
 
   // 活动跳转
-  const handleClick = () => {
-    router.push({name:'Activity'})
+  const gotoSign = obj => {
+    if(obj.isApply === 1) {
+      sessionStorage.setItem('currentActivity',JSON.stringify(obj));
+      router.push({name:'Activity'});
+    } else {
+      store.setCurrentItem(obj);
+      router.push({name: 'Intro'});
+    }
   }
 
-  // 跳转详情
-  const goToIntro = item => {
-    store.currentItem = item;
-    router.push({name: 'Intro'});
+  const savePosY = () => { 
+    if(state.timer) return;
+    state.timer = setTimeout(() => { 
+      let node = document.querySelector(".contentWrapper"); //记录滚动位置 
+      store.setY(node.scrollTop) 
+      state.timer = null; 
+      clearTimeout(state.timer); 
+    },100)
   }
+
+  onMounted(() => {
+    let contentWrapper = document.querySelector(".contentWrapper"); 
+    contentWrapper.addEventListener("scroll",savePosY);
+
+    nextTick(() => { contentWrapper.scrollTop = store.y })
+  })
 
 </script>
 
@@ -71,26 +89,26 @@ import http from '@/utils/http';
       <div class="tops">
         <span>阳光工程项目</span>
       </div>
-      <ul>
-        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+      <ul >
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh" >
           <van-list
             v-model:loading="loading"
+            class="contentWrapper"
             :finished="finished"
             finished-text="没有更多了"
             @load="onLoad"
           >
             <li v-for="item,index in dataList" :key="index">
               <div>
-                <img :src="item.picture" v-lazy="item.picture" @click="goToIntro(item)">
+                <img :src="item.picture" v-lazy="item.picture" @click="gotoSign(item)">
                 <img 
                   class="active" 
                   src="../../../assets/sunshine/active_icon.png"
                   v-if="item.isApply===1" 
-                  @click="handleClick"
                 />
               </div>
               <div>
-                <span @click="goToIntro(item)">{{item.name}}</span><br/>
+                <span @click="gotoSign(item)">{{item.name}}</span><br/>
                 <span>{{item.createTime}}</span>
               </div>
               <div></div>
@@ -103,6 +121,13 @@ import http from '@/utils/http';
 </template>
 
 <style lang="scss" scoped>
+// 去除滚动条
+::-webkit-scrollbar {
+  width: 0 !important;
+}
+::-webkit-scrollbar {
+  width: 0 !important;height: 0;
+}
 .border-content {
   width: 710px;
   min-height: 1689px;
@@ -142,7 +167,7 @@ import http from '@/utils/http';
       margin-top: 85px;
       padding: 0;
       width: 630px;
-      height: 93%;
+      height: 90%;
       list-style: none;
       overflow: scroll;
       li {

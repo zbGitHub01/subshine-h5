@@ -1,117 +1,155 @@
 <script setup>
-import { reactive, toRefs, onBeforeMount, onMounted } from 'vue'
-    const state = reactive({})
-    onBeforeMount(() => {})
-    onMounted(() => {})
+import { reactive, toRefs, onUnmounted, onMounted, nextTick } from 'vue';
+import { sunshineStore } from '@/store/module/sunshine.js';
+import { useRouter, useRoute } from 'vue-router';
+
+  const store = sunshineStore();
+  const router = useRouter();
+  const route = useRoute();
+  const state = reactive({
+    currentAct: {}
+  })
+
+  // sessionStorage中取当前活动信息
+  const getCurrentActivity = () => {
+     state.currentAct = {...JSON.parse(sessionStorage.getItem('currentActivity'))};
+  };
+
+  // 根据盒子宽度按比例设置api图片的宽高
+  const computedImgAttribute = () => {
+    var imgWidth = document.getElementsByClassName('content-body')[0].offsetWidth;
+    var imgArr = document.getElementsByTagName('img');
+    nextTick(()=>{
+      var imgList = Array.prototype.slice.call(imgArr);
+      for(var element in imgList) {
+        const curImgWidth = imgList[element].width;
+        const curImgHeight = imgList[element].height;
+        const percentage = curImgWidth / imgWidth;
+        imgList[element].style.width = imgWidth + 'px';
+        imgList[element].style.height = curImgHeight / percentage + 'px';
+      }
+    })
+  }
+
+  onMounted(() => {
+    computedImgAttribute();
+  })
+
+  // 报名
+  const handleSign = () => {
+    router.push({name: 'Signup'});
+  }
+
+  // 债务查询跳转
+  const gotoQueryDebt = () => {
+    window.location.href = 'https://h5.51gouxiao.com/?code=051NSh2w3DEbvZ2H210w3gCldp3NSh2X&state=#/pages/debtSearch/debtSearch?isSunProject=true'
+  }
+
+  getCurrentActivity();
+
+
 </script>
 
 <template>
-  <div class="main">
-    <header>
-      <div></div>
-      <div>
-        <span></span>
-        <span>(北京)</span>
-      </div>
-      <div>
-        <div>
-          <span>邀你一起</span><span>助力北京公益</span>
-        </div>
-      </div>
-    </header>
+  <div class="main" :style="`background:${state.currentAct.colorString}`">
+    <header :style="`background:url(${state.currentAct.picture}) no-repeat center;background-size: 100% 100%;`"></header>
     <section>
       <div class="content-fir">
         <div>
-          <span>欠款金额</span><span>222</span>
+          <span>欠款金额</span><span>****</span>
           <br/>
-          <span>可延期还款日期</span><span>222</span>
+          <span>可延期还款日期</span><span>****-**-**</span>
         </div>
         <div>
-          <van-button class="fir-btn" round >债务查询结果</van-button>
-          <van-button class="sec-btn" round >我要报名</van-button>
+          <van-button class="fir-btn" round @click="gotoQueryDebt">债务查询结果</van-button>
+          <van-button class="sec-btn" round @click="handleSign" >我要报名</van-button>
         </div>
       </div>
       <div>
-        顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶
-        顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶
-        顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶
+        <div class="content-body" v-html="state.currentAct.html"></div>
       </div>
+      <div class="footer-font">本活动最终解释权归浙江东岸科技有限公司所有</div>
     </section>
   </div>
 </template>
 <style scoped lang='scss'>
 .main {
+  padding-bottom: 80px;
   width: 750px;
-  height: 2677px;
-  background: linear-gradient(180deg, #00B190 0%, #008E83 100%);
+  // height: 2677px;
   overflow: hidden;
   header {
     width: 100%;
-    height: 535px;
-    background: url('@/assets/sunshine/banner_head.png') no-repeat center;
-    background-size: 100% 100%;
+    height: 426px;
+    // background: url('@/assets/sunshine/banner_newHeader.png') no-repeat center;
+    // background-size: 100% 100%;
     overflow: hidden;
-    & div:nth-child(1) {
-      margin: 0 auto;
-      margin-top: 51px;
-      width: 394px;
-      height: 102px;
-      background: url('@/assets/sunshine/activity_font2.png') no-repeat center;
+
+    .banner {
+      width: 100%;
+      height: 100%;
       background-size: 100% 100%;
     }
-    & div:nth-child(2) {
-      display: flex;
-      width: 100%;
-      height: 133px;
-      span {
-        display: inline-block;
-      }
-      & span:first-child {
-        margin-left: 35px;
-        width: 486px;
-        height: 133px;
-        background: url('../../../../assets/sunshine/activity_font.png') no-repeat center;
-        background-size: 100% 100%;
-        & + span {
-          margin-top: 53px;
-          height: 62px;
-          font-size: 62px;
-          font-family: PangMenZhengDao;
-          color: #FFFFFF;
-          line-height: 71px;
-          text-shadow: 0px 6px 8px rgba(0,0,0,0.5);
-        }
-      }
-    }
-    & div:last-child {
-      margin: 0 auto;
-      margin-top: 14px;
-      width: 540px;
-      height: 46px;
-      background: #FFA651;
-      line-height: 46px;
-      border-radius: 1px 1px 23px;
-      div {
-        display: flex;
-        display: -webkit-flex;
-        justify-content: space-between;
-        width: 443px;
-        height: 100%;
-        span {
-          font-size: 26px;
-          font-family: PingFangSC-Regular, PingFang SC;
-          font-weight: 400;
-          color: #FFFFFF;
-          letter-spacing: 15px;
-      }
-      }
-    }
+    // & div:nth-child(1) {
+    //   margin: 0 auto;
+    //   margin-top: 51px;
+    //   width: 394px;
+    //   height: 102px;
+    //   background: url('@/assets/sunshine/activity_font2.png') no-repeat center;
+    //   background-size: 100% 100%;
+    // }
+    // & div:nth-child(2) {
+    //   display: flex;
+    //   width: 100%;
+    //   height: 133px;
+    //   span {
+    //     display: inline-block;
+    //   }
+    //   & span:first-child {
+    //     margin-left: 35px;
+    //     width: 486px;
+    //     height: 133px;
+    //     background: url('../../../../assets/sunshine/activity_font.png') no-repeat center;
+    //     background-size: 100% 100%;
+    //     & + span {
+    //       margin-top: 53px;
+    //       height: 62px;
+    //       font-size: 62px;
+    //       font-family: PangMenZhengDao;
+    //       color: #FFFFFF;
+    //       line-height: 71px;
+    //       text-shadow: 0px 6px 8px rgba(0,0,0,0.5);
+    //     }
+    //   }
+    // }
+    // & div:last-child {
+    //   margin: 0 auto;
+    //   margin-top: 14px;
+    //   width: 540px;
+    //   height: 46px;
+    //   background: #FFA651;
+    //   line-height: 46px;
+    //   border-radius: 1px 1px 23px;
+    //   div {
+    //     display: flex;
+    //     display: -webkit-flex;
+    //     justify-content: space-between;
+    //     width: 443px;
+    //     height: 100%;
+    //     span {
+    //       font-size: 26px;
+    //       font-family: PingFangSC-Regular, PingFang SC;
+    //       font-weight: 400;
+    //       color: #FFFFFF;
+    //       letter-spacing: 15px;
+    //   }
+    //   }
+    // }
   }
   section {
-    position: relative;
-    top: -108px;
-    width: 690px;
     margin:  0 auto;
+    width: 690px;
+    overflow: hidden;
     .content-fir {
       width: 100%;
       height: 354px;
@@ -153,12 +191,33 @@ import { reactive, toRefs, onBeforeMount, onMounted } from 'vue'
       
       & + div {
         margin-top: 30px;
+        padding-top: 1px;
         width: 100%;
         background: #FFFFFF;
         border-radius: 10px;
       }
     }
   }
+}
+.content-body {
+  padding-bottom: 40px;
+  width: 626px;
+  margin: 0 auto;
+  margin-top: 40px;
+  img {
+    width: 626px;
+  }
+}
+.footer-font {
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 504px;
+  height: 33px;
+  font-size: 24px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #064F41;
+  line-height: 33px;
 }
 :deep(.fir-btn) {
   width: 300px;
