@@ -37,6 +37,19 @@ import defaultBkg from '@/assets/sunshine/default_bkg.png'; // 兜底背景图
     router.push({name: 'Details', query: {type: val}});
   }
 
+  // 点击图片跳转活动详情
+  const gotoSign = obj => {
+    // 没有活动的话obj的属性只有一个默认图，即length = 1
+    if(Object.values(obj).length <= 1) return;
+    if(obj.isApply === 1) {
+      sessionStorage.setItem('currentActivity',JSON.stringify(obj));
+      router.push({name:'Activity'});
+    } else {
+      store.setCurrentItem(obj);
+      router.push({name: 'Intro'});
+    }
+  }
+
   getData();
 
 </script>
@@ -52,10 +65,10 @@ import defaultBkg from '@/assets/sunshine/default_bkg.png'; // 兜底背景图
           <span>阳光工程项目</span>
           <span @click="goToDetail(item.type)">更多</span>
         </div>
-        <div :style="`background: url(${item.picture}) no-repeat center;background-size: 100% 100%;`">
-          <!-- <div></div> -->
-        </div>
-        <div v-if="index + 1 !== list.length"></div>
+        <div 
+          :style="`background: url(${item.picture}) no-repeat center;background-size: 100% 100%;`" 
+          @click="gotoSign(item)"></div>
+        <div v-if="index + 1 !== state.activitiesArr.length"></div>
       </li>
     </ul>
   </div>
@@ -75,7 +88,7 @@ div {
   height: 497px;
   margin: 0 auto;
   font-size: 30px;
-  font-family: PingFang-SC-Bold, PingFang-SC;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   font-weight: bold;
   color: #16494B;
   text-indent: 1em;
@@ -104,18 +117,18 @@ div {
       padding: 30px 0;
     & span:first-child {
         display: inline-block;
-        width: 192px;
+        // width: 192px;
         height: 44px;
         margin-left: 48px;
         font-size: 32px;
-        font-family: PingFang-SC-Bold, PingFang-SC;
+        font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
         font-weight: bold;
         color: #16494B;
         line-height: 44px;
     & + span {
       position: relative;
       display: inline-block;
-      width: 54px;
+      // width: 54px;
       height: 37px;
       margin-right: 52px;
       font-size: 26px;
@@ -127,7 +140,7 @@ div {
           content: '';
           position: absolute;
           display: inline-block;
-          top: 12px;
+          top: 11px;
           left: 60px;
           width: 14px;
           height: 14px;
@@ -164,7 +177,6 @@ div {
     }
     & div:nth-child(3) {
       width: 628px;
-      height: 1px;
       margin-left: 48.5px;
       margin-top: 40px;
       opacity: 0.49;

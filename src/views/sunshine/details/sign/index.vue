@@ -37,11 +37,11 @@ const VanDialog = Dialog.Component;
       },
       {
         label: '工作地点',
-        value: 'workPlace',
+        value: 'workAddress',
       },
       {
         label: '户籍所在地',
-        value: 'nativePlace',
+        value: 'registerLocation',
       },
     ]
   })
@@ -59,23 +59,23 @@ const VanDialog = Dialog.Component;
 
   // 发送验证码
   const sendCode = async() => {
-    if(phoneValidator.value) {
-      const params = {
-        phone: state.form.phone
-      }
-      isCodeTime.value = true;
-      const res = await http.get("/api/activitiesApplicant/sendCode",params);
-      // 验证码倒计时
-      let interval = setInterval(() => {
-        if(codeTime.value > 0){
-          codeTime.value -- ;
-        } else {
-          codeTime.value = 59;
-          isCodeTime.value = false;
-          clearInterval(interval);
-        }
-      }, 1000);
+    if(state.form.phone==='') Toast.fail('请输入手机号');
+    if(!phoneValidator.value) return;
+    const params = {
+      phone: state.form.phone
     }
+    isCodeTime.value = true;
+    const res = await http.get("/api/activitiesApplicant/sendCode",params);
+    // 验证码倒计时
+    let interval = setInterval(() => {
+      if(codeTime.value > 0){
+        codeTime.value -- ;
+      } else {
+        codeTime.value = 59;
+        isCodeTime.value = false;
+        clearInterval(interval);
+      }
+    }, 1000)
   }
   // 提交表单
   const onSubmit = async values => {
@@ -133,9 +133,9 @@ const VanDialog = Dialog.Component;
             <van-field
               v-model="state.form.remark"
               name="remark"
-              rows="4"
+              rows="5"
               autosize
-              label="留言"
+              label="备注"
               type="textarea"
               maxlength="100"
             />
@@ -183,7 +183,7 @@ const VanDialog = Dialog.Component;
       background: url('../../../../assets/sunshine/juxing.png') no-repeat center;
       background-size: 100% 100%;
       font-size: 48px;
-      font-family: PingFang-SC-Bold, PingFang-SC;
+      font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
       font-weight: bold;
       color: #FFFFFF;
       text-align: center;
@@ -212,11 +212,12 @@ const VanDialog = Dialog.Component;
     margin: 12px 0;
     padding: 0;
     justify-content: space-between;
+    align-items: center;
     .van-cell__title {
       width: auto;
       height: 44px;
       font-size: 32px;
-      font-family: PingFang-SC-Bold, PingFang-SC;
+      font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
       font-weight: bold;
       color: #16494B;
       line-height: 44px;
@@ -240,26 +241,28 @@ const VanDialog = Dialog.Component;
     .van-cell {
       display: block;
       margin: 0;
+      margin-top: 20px;
       .van-field__body {
         margin-top: 15px;
+        margin-bottom: 10px;
         width: 628px;
         height: 268px;
         background: #FFFFFF;
         border-radius: 6px;
-        border: 1px solid #9797
+        border: 1px solid #979797;
       }
     }
   }
 .sub {
   .van-button {
-    margin-top: 60px;
+    margin-top: 50px;
   }
   .van-button--round {
     border-radius: 6px;
   }
   .van-button--normal {
     font-size: 32px;
-    font-family: PingFang-SC-Bold, PingFang-SC;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
     font-weight: bold;
     color: #FFFFFF;
   }
@@ -274,9 +277,15 @@ const VanDialog = Dialog.Component;
   }
 }
 }
+:deep(.van-field__label) label {
+  font-size: 32px;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-weight: 400;
+  color: #16494B;
+}
 :deep(.van-dialog__header) {
   font-size: 36px;
-  font-family: PingFang-SC-Bold, PingFang-SC;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   font-weight: bold;
   color: #009D8D;
 }
@@ -297,5 +306,13 @@ const VanDialog = Dialog.Component;
     background: linear-gradient(270deg, #00BF92 0%, #009D8D 100%);
     border-radius: 43px;
   }
+}
+:deep(.van-field__body) {
+  input, textarea {
+    margin-left: 20px;
+  }
+}
+:deep(.van-button--default) {
+  border: none;
 }
 </style>

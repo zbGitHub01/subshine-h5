@@ -235,6 +235,7 @@ import { useRouter, useRoute } from 'vue-router';
 :deep(.sec-btn) {
   width: 300px;
   height: 80px;
+  border: none;
   background: linear-gradient(270deg, #00BF92 0%, #009D8D 100%);
   box-shadow: 0px 8px 20px 0px rgba(0,137,122,0.4);
   border-radius: 40px;

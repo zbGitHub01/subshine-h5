@@ -1,6 +1,6 @@
 
 <script setup>
-import { ref, reactive, onMounted, nextTick } from 'vue';
+import { ref, reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { sunshineStore } from '@/store/module/sunshine.js';
 import { Toast } from 'vant';
@@ -63,23 +63,6 @@ import http from '@/utils/http';
       router.push({name: 'Intro'});
     }
   }
-
-  const savePosY = () => { 
-    if(state.timer) return;
-    state.timer = setTimeout(() => { 
-      let node = document.querySelector(".contentWrapper"); //记录滚动位置 
-      store.setY(node.scrollTop) 
-      state.timer = null; 
-      clearTimeout(state.timer); 
-    },100)
-  }
-
-  onMounted(() => {
-    let contentWrapper = document.querySelector(".contentWrapper"); 
-    contentWrapper.addEventListener("scroll",savePosY);
-
-    nextTick(() => { contentWrapper.scrollTop = store.y })
-  })
 
 </script>
 
@@ -157,7 +140,7 @@ import http from '@/utils/http';
         display: inline-block;
         margin-top: 5px;
         font-size: 48px;
-        font-family: PingFang-SC-Bold, PingFang-SC;
+        font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
         font-weight: bold;
         color: #FFFFFF;
       }
@@ -198,7 +181,7 @@ import http from '@/utils/http';
               height: 44px;
               margin-bottom: 4px;
               font-size: 32px;
-              font-family: PingFang-SC-Bold, PingFang-SC;
+              font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
               font-weight: bold;
               color: #16494B;
               line-height: 44px;
@@ -216,7 +199,6 @@ import http from '@/utils/http';
         & div:last-child {
           margin-top: 20px;
           width: 628px;
-          height: 1px;
           opacity: 0.49;
           border: 1px solid #164
         }
