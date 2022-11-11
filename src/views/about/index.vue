@@ -127,8 +127,8 @@ const active = ref(0);
   overflow: hidden;
   .img_sub3 {
     width: 694px;
-    height: 1172px;
-    background: url("@/assets/about/about3.png") no-repeat;
+    height: 747px;
+    background: url("@/assets/about/about7.png") no-repeat;
     background-size: 100% 100%;
     margin: 0 auto;
   }
