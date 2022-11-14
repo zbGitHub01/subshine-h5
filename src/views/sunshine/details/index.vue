@@ -200,7 +200,7 @@ import http from '@/utils/http';
           margin-top: 20px;
           width: 628px;
           opacity: 0.49;
-          border: 1px solid #164
+          border-top: 1px solid #164
         }
       }
       & li:not(:last-child) {

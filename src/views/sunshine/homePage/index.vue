@@ -180,7 +180,7 @@ div {
       margin-left: 48.5px;
       margin-top: 40px;
       opacity: 0.49;
-      border: 1px solid
+      border-top: 1px solid #16494B;
     }
   }
 }
