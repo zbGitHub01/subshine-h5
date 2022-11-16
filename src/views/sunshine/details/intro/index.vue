@@ -1,9 +1,10 @@
 <script setup>
 import { watch } from 'vue';
 import { sunshineStore } from '@/store/module/sunshine.js';
-import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
+import { getTitle } from '../../utils';
 
-  const router = useRouter();
+  const route = useRoute();
   const store = sunshineStore();
 
   watch(store.currentItem,(newVal,oldVal) => {
@@ -17,7 +18,7 @@ import { useRouter } from 'vue-router';
 <template>
   <div>
     <van-nav-bar
-      title="青年阳光项目"
+      :title="getTitle(route.query.type)"
       left-arrow
       @click-left="onClickLeft"
     />
@@ -38,7 +39,6 @@ import { useRouter } from 'vue-router';
   overflow: auto;
   & div:nth-child(1) {
     margin-top: 30px;
-    width: 108px;
     height: 48px;
     font-size: 36px;
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;

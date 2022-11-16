@@ -42,7 +42,8 @@ import { useRouter, useRoute } from 'vue-router';
 
   // 债务查询跳转
   const gotoQueryDebt = () => {
-    window.location.href = 'https://h5.51gouxiao.com/?code=051NSh2w3DEbvZ2H210w3gCldp3NSh2X&state=#/pages/debtSearch/debtSearch?isSunProject=true'
+    window.location.href = 'https://h5.51gouxiao.com/?code=051NSh2w3DEbvZ2H210w3gCldp3NSh2X&state=#/pages/debtSearch/debtSearch?isSunshine=true'
+    // window.location.href = 'http://192.168.1.155:8080/#/pages/debtSearch/debtSearch?isSunshine=true'
   }
 
   getCurrentActivity();

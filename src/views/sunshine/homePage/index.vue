@@ -5,9 +5,11 @@ import { useRouter } from 'vue-router';
 import { sunshineStore } from '@/store/module/sunshine.js';
 import http from '@/utils/http';
 import { Toast } from 'vant';
-import 'vant/es/toast/style';
-import { tipsText, list } from '../tips/index';
+import { tipsText } from '../tips/index';
+import { getTitle } from '../utils';
 import defaultBkg from '@/assets/sunshine/default_bkg.png'; // 兜底背景图
+import 'vant/es/toast/style';
+
 
   const router = useRouter();
   const state = reactive({
@@ -62,7 +64,7 @@ import defaultBkg from '@/assets/sunshine/default_bkg.png'; // 兜底背景图
     <ul>
       <li v-for="item,index in state.activitiesArr" :key="index">
         <div>
-          <span>阳光工程项目</span>
+          <span>{{getTitle(item.type)}}</span>
           <span @click="goToDetail(item.type)">更多</span>
         </div>
         <div 
@@ -140,7 +142,7 @@ div {
           content: '';
           position: absolute;
           display: inline-block;
-          top: 11px;
+          top: 9px;
           left: 60px;
           width: 14px;
           height: 14px;

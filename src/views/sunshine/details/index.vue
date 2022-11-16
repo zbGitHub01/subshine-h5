@@ -4,8 +4,9 @@ import { ref, reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { sunshineStore } from '@/store/module/sunshine.js';
 import { Toast } from 'vant';
-import 'vant/es/toast/style';
+import { getTitle } from '../utils'
 import http from '@/utils/http';
+import 'vant/es/toast/style';
 
   const router = useRouter();
   const route = useRoute();
@@ -60,7 +61,7 @@ import http from '@/utils/http';
       router.push({name:'Activity'});
     } else {
       store.setCurrentItem(obj);
-      router.push({name: 'Intro'});
+      router.push({name: 'Intro', query: {type: obj.type}});
     }
   }
 
@@ -70,7 +71,7 @@ import http from '@/utils/http';
   <div class="border-content">
     <div class="border-main">
       <div class="tops">
-        <span>阳光工程项目</span>
+        <span>{{getTitle(Number(route.query.type))}}</span>
       </div>
       <ul >
         <van-pull-refresh v-model="refreshing" @refresh="onRefresh" >
