@@ -18,16 +18,19 @@ import 'vant/es/toast/style';
   const store = sunshineStore();
   
   const getData = async() => {
+    sessionStorage.removeItem('currentActivity');
     Toast.loading('加载中...');
     const data = await http.get('/api/activitiesConfig/getHomeActivitiesInfo');
     Toast.clear()
     if (data.code !== 200) {
       Toast.fail(data.msg);
     } else {
+      // 此处与后端约定空对象即为null
       Object.values(data.data).forEach(item => {
         // 判空赋默认图
-        if(Object.keys(item).length === 0) {
-          item.picture = defaultBkg;
+        if(item === null) {
+          item = {};
+          item['picture'] = defaultBkg;
         }
         state.activitiesArr.push(item);
       })
@@ -36,6 +39,7 @@ import 'vant/es/toast/style';
   
   // 更多跳转
   const goToDetail = val => {
+    if([undefined,null,''].includes(val)) return;
     router.push({name: 'Details', query: {type: val}});
   }
 
