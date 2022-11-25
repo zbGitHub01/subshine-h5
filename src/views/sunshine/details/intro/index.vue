@@ -1,7 +1,8 @@
 <script setup>
-import { watch } from 'vue';
+import { watch, onMounted, nextTick } from 'vue';
 import { sunshineStore } from '@/store/module/sunshine.js';
 import { useRoute } from 'vue-router';
+import { computedImgAttribute } from '../../utils/formatImg';
 import { getTitle } from '../../utils';
 
   const route = useRoute();
@@ -12,6 +13,11 @@ import { getTitle } from '../../utils';
   }, {immediate: true, deep: true});
 
   const onClickLeft = () => history.back();
+
+  onMounted(() => {
+    computedImgAttribute('content-body', nextTick);
+  })
+
  
 </script>
 
@@ -25,7 +31,7 @@ import { getTitle } from '../../utils';
     <div class="content">
       <div>{{store.currentItem.name}}</div>
       <div>{{store.currentItem.createTime}} 发布</div>
-      <div v-html="store.currentItem.html"></div>
+      <div class="content-body" v-html="store.currentItem.html"></div>
     </div>
   </div>
 </template>

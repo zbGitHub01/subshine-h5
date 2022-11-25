@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, toRefs, onUnmounted, onMounted, nextTick } from 'vue';
 import { sunshineStore } from '@/store/module/sunshine.js';
+import { computedImgAttribute } from '../../utils/formatImg';
 import { useRouter, useRoute } from 'vue-router';
 
   const store = sunshineStore();
@@ -15,24 +16,8 @@ import { useRouter, useRoute } from 'vue-router';
      state.currentAct = {...JSON.parse(sessionStorage.getItem('currentActivity'))};
   };
 
-  // 根据盒子宽度按比例设置api图片的宽高
-  const computedImgAttribute = () => {
-    var imgWidth = document.getElementsByClassName('content-body')[0].offsetWidth;
-    var imgArr = document.getElementsByTagName('img');
-    nextTick(()=>{
-      var imgList = Array.prototype.slice.call(imgArr);
-      for(var element in imgList) {
-        const curImgWidth = imgList[element].width;
-        const curImgHeight = imgList[element].height;
-        const percentage = curImgWidth / imgWidth;
-        imgList[element].style.width = imgWidth + 'px';
-        imgList[element].style.height = curImgHeight / percentage + 'px';
-      }
-    })
-  }
-
   onMounted(() => {
-    computedImgAttribute();
+    computedImgAttribute('content-body',nextTick);
   })
 
   // 报名
