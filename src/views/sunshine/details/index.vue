@@ -56,7 +56,8 @@ import 'vant/es/toast/style';
 
   // 活动跳转
   const gotoSign = obj => {
-    if(obj.isApply === 1) {
+    console.log(obj)
+    if(obj.isApply === 1&&obj.type===0) {
       sessionStorage.setItem('currentActivity',JSON.stringify(obj));
       router.push({name:'Activity'});
     } else {
@@ -88,7 +89,7 @@ import 'vant/es/toast/style';
                 <img 
                   class="active" 
                   src="../../../assets/sunshine/active_icon.png"
-                  v-if="item.isApply===1" 
+                  v-if="item.isApply===1&&item.type===0" 
                 />
               </div>
               <div>
@@ -157,7 +158,7 @@ import 'vant/es/toast/style';
       li {
         position: relative;
         width: 630px;
-        height: 467px;
+        // height: 467px;
         div:first-child {
           position: relative;
           width: 100%;
@@ -220,5 +221,4 @@ import 'vant/es/toast/style';
   text-align: center;
   letter-spacing: 1px;
 }
-
 </style>

@@ -2,7 +2,7 @@
 import { watch, onMounted, nextTick } from 'vue';
 import { sunshineStore } from '@/store/module/sunshine.js';
 import { useRoute } from 'vue-router';
-import { computedImgAttribute } from '../../utils/formatImg';
+import { computedImgAttribute, appointFirstFrame } from '../../utils/formatImg';
 import { getTitle } from '../../utils';
 
   const route = useRoute();
@@ -16,6 +16,7 @@ import { getTitle } from '../../utils';
 
   onMounted(() => {
     computedImgAttribute('content-body', nextTick);
+    appointFirstFrame();
   })
 
  
@@ -45,7 +46,6 @@ import { getTitle } from '../../utils';
   overflow: auto;
   & div:nth-child(1) {
     margin-top: 30px;
-    height: 48px;
     font-size: 36px;
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
     font-weight: bold;
@@ -54,7 +54,6 @@ import { getTitle } from '../../utils';
   }
   & div:nth-child(2) {
     margin-top: 10px;
-    height: 33px;
     font-size: 24px;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;

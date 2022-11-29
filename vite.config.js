@@ -57,7 +57,8 @@ export default defineConfig({
     hmr: true,
     proxy: {
       '/api': {
-        target: 'https://test.dongancloud.com/',
+        // target: 'https://test.dongancloud.com/',
+        target: 'https://sunshine.dongancloud.com/',
         // target: 'https://www.dongancloud.com',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '/api')

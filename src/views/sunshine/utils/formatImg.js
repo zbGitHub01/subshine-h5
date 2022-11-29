@@ -3,7 +3,7 @@
 export const computedImgAttribute = ( className, nextTick ) => {
   let boxWidth = document.getElementsByClassName(className)[0].offsetWidth;
   let imgArr = document.getElementsByTagName('img');
-  let videoArr = document.getElementsByTagName('video');
+  let videoArr = document.getElementsByTagName('video'); 
   nextTick(()=>{
     let imgList = Array.prototype.slice.call(imgArr);
     let videoList = Array.prototype.slice.call(videoArr);
@@ -22,4 +22,14 @@ export const computedImgAttribute = ( className, nextTick ) => {
       videoList[element].style.height = curVideoHeight / percentage + 'px';
     }
   })
+}
+
+// 视频设置显示第一帧画面
+export const appointFirstFrame = () => {
+  let videoArr = document.getElementsByTagName('video'); 
+  let videoList = Array.prototype.slice.call(videoArr);
+  for(let item in videoList) {
+    let curItem = videoList[item].querySelector("source");
+    videoList[item].setAttribute('poster',curItem.src + '?x-oss-process=video/snapshot,t_10,f_jpg');
+  }
 }

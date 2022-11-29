@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, toRefs, onUnmounted, onMounted, nextTick } from 'vue';
 import { sunshineStore } from '@/store/module/sunshine.js';
-import { computedImgAttribute } from '../../utils/formatImg';
+import { computedImgAttribute, appointFirstFrame } from '../../utils/formatImg';
 import { useRouter, useRoute } from 'vue-router';
 
   const store = sunshineStore();
@@ -18,6 +18,7 @@ import { useRouter, useRoute } from 'vue-router';
 
   onMounted(() => {
     computedImgAttribute('content-body',nextTick);
+    appointFirstFrame();
   })
 
   // 报名
