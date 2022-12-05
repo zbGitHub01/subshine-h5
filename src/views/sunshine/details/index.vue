@@ -180,7 +180,7 @@ import 'vant/es/toast/style';
           & + div span {
             display: inline-block;
             &:first-child {
-              height: 44px;
+              // height: 44px;
               margin-bottom: 4px;
               font-size: 32px;
               font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;

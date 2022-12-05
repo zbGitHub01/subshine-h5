@@ -212,8 +212,9 @@ const VanDialog = Dialog.Component;
     margin: 12px 0;
     padding: 0;
     justify-content: space-between;
-    align-items: center;
+    // align-items: center;
     .van-cell__title {
+      margin-top: 9px;
       width: auto;
       height: 44px;
       font-size: 32px;
