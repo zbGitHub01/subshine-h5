@@ -4,6 +4,8 @@ van-swipe.swipe(autoplay="5000" :show-indicators="false")
     img.swipe-img(src="@/assets/images/banner1.png")
   van-swipe-item
     img.swipe-img(src="@/assets/images/banner2.png")
+  van-swipe-item.video_box
+    img.swipe-img(src="@/assets/images/video_bkg.png" @click="handlePlay")
 .bush-system-wrap
   .title 东岸业务体系
   .items
@@ -22,11 +24,18 @@ WalkLantern
     .card(v-for="item in latestList" :key="item.id")
       img(:src="item.picture")
       .desc {{ item.title }}
+
+van-image-preview(:show="state.videoPlayVisible" :images="state.videoSrc")
+  template(#image="{ src }")
+    video(style="width: 100%;" :src="src" controls)
+      source(:src="src")
+
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+// import { ImagePreview } from "vant";
 import bushSystemIcon1 from '@/assets/images/bush-system-icon1.png'
 import bushSystemIcon2 from '@/assets/images/bush-system-icon2.png'
 import bushSystemIcon3 from '@/assets/images/bush-system-icon3.png'
@@ -39,6 +48,11 @@ import http from '@/utils/http'
 //   const data = await http.get('/api/advantage/findByAll')
 //   // console.log(data)
 // }
+
+const state = reactive({
+  videoPlayVisible: false,
+  videoSrc: 'https://asfile.donganzichan.cn/assets/static/video/home-video_x264.mp4'
+})
 
 const latestList = ref([])
 const fetchLatestDevelop = async () => {
@@ -79,6 +93,11 @@ const items = ref([
 const router = useRouter()
 const goPage = (item) => {
   router.push({ path: item.path })
+}
+
+const handlePlay = () => {
+  state.videoPlayVisible = true
+  console.log(state.videoPlayVisible)
 }
 
 </script>
@@ -199,6 +218,25 @@ const goPage = (item) => {
       -webkit-box-orient: vertical;
     }
   }
+}
+.video_box {
+  position: relative;
+  .play_icon {
+    position: absolute;
+    margin: 0 auto;
+    left: 46%;
+    top: 45%;
+    cursor: pointer;
+  }
+}
+.video-play {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.video_play_box {
+  position: relative;
+  z-index: 9999;
 }
 @-webkit-keyframes move {
   25% {

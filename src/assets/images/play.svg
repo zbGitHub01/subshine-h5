@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>播放</title>
+    <defs>
+        <filter id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g filter="url(#filter-1)" id="播放">
+            <g>
+                <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="120" height="120"></rect>
+                <path d="M59.9999955,9.6 C32.1590008,9.6 9.6,32.1706371 9.6,60 C9.6,87.8409972 32.1706351,110.4 59.9999955,110.4 C87.8409903,110.4 110.399996,87.8293629 110.399996,60 C110.411625,32.1706371 87.8409903,9.6 59.9999955,9.6 Z M81.3257554,61.7102493 L53.3800515,84.199446 C51.9490267,85.3512465 49.8315754,84.3274238 49.8315754,82.500831 L49.8315754,37.5108033 C49.8315754,35.6842105 51.9490267,34.6603878 53.3800515,35.8121884 L81.3257554,58.3130194 C82.4193841,59.1855956 82.4193841,60.8376731 81.3257554,61.7102493 L81.3257554,61.7102493 Z" id="形状" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>
