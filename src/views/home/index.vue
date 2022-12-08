@@ -1,41 +1,42 @@
 <template lang="pug">
-van-swipe.swipe(autoplay="5000" :show-indicators="false")
-  van-swipe-item
-    img.swipe-img(src="@/assets/images/banner1.png")
-  van-swipe-item
-    img.swipe-img(src="@/assets/images/banner2.png")
-  van-swipe-item.video_box
-    img.swipe-img(src="@/assets/images/video_bkg.png" @click="handlePlay")
-.bush-system-wrap
-  .title 东岸业务体系
-  .items
-    .item(v-for="(item, index) in items" :key="index" @click="goPage(item)")
-      img(:src="item.icon")
-      .label {{item.label}}
-  .decor
-    img(src="@/assets/images/decor-bg1.png")
-.aside
-  .title 数字科技助力青年成长
-  p.paragraph 东岸科技是一家国有参股的集团公司，是一家以金融数字科技为核心领域，以资产管理为应用场景，以430万用户大数据为依托的科技型企业。面向银行、AMC、持牌小贷机构等上游客户，东岸科技提供不良资产处置管理、资产评估定价、一体化数字决策处置系统等服务，用数字科技的时段，深化个贷不良行业数智化转型，重塑资产管理的新模式。同时，东岸科技为下游需要帮助的阶段性债务受压青年输出成长方案。截止目前，东岸科技通过首创勾销债务管理平台、成立调解中心、设立“青年成长阳光工程”等方式，成功帮助全国31万+年青人摆脱债务危机，并为其提供教育、就业等帮扶实现全面成长，助力他们更好地回归经济社会发展的正常轨道。
-WalkLantern
-.latestDevelop
-  .title 最新动态
-  .card-list
-    .card(v-for="item in latestList" :key="item.id")
-      img(:src="item.picture")
-      .desc {{ item.title }}
-
-van-image-preview(:show="state.videoPlayVisible" :images="state.videoSrc")
-  template(#image="{ src }")
-    video(style="width: 100%;" :src="src" controls)
-      source(:src="src")
-
+.main
+  van-swipe.swipe(autoplay="5000" :show-indicators="false")
+    van-swipe-item
+      img.swipe-img(src="@/assets/images/banner1.png")
+    van-swipe-item
+      img.swipe-img(src="@/assets/images/banner2.png")
+    van-swipe-item.video_box
+      img.swipe-img(src="@/assets/images/video_bkg.png" @click="handlePlay")
+  .bush-system-wrap
+    .title 东岸业务体系
+    .items
+      .item(v-for="(item, index) in items" :key="index" @click="goPage(item)")
+        img(:src="item.icon")
+        .label {{item.label}}
+    .decor
+      img(src="@/assets/images/decor-bg1.png")
+  .aside
+    .title 数字科技助力青年成长
+    p.paragraph 东岸科技是一家国有参股的集团公司，是一家以金融数字科技为核心领域，以资产管理为应用场景，以430万用户大数据为依托的科技型企业。面向银行、AMC、持牌小贷机构等上游客户，东岸科技提供不良资产处置管理、资产评估定价、一体化数字决策处置系统等服务，用数字科技的时段，深化个贷不良行业数智化转型，重塑资产管理的新模式。同时，东岸科技为下游需要帮助的阶段性债务受压青年输出成长方案。截止目前，东岸科技通过首创勾销债务管理平台、成立调解中心、设立“青年成长阳光工程”等方式，成功帮助全国31万+年青人摆脱债务危机，并为其提供教育、就业等帮扶实现全面成长，助力他们更好地回归经济社会发展的正常轨道。
+  WalkLantern
+  .latestDevelop
+    .title 最新动态
+    .card-list
+      .card(v-for="item in latestList" :key="item.id")
+        img(:src="item.picture")
+        .desc {{ item.title }}
+.video_play_box(v-show="state.videoPlayVisible")
+  .video-play
+    .video-content
+      video(:src="state.videoSrc" class="videoSelf" :poster="state.videoSrc+'?x-oss-process=video/snapshot,t_10,f_jpg'" controls)
+      span
+        <van-icon name="cross" @click="handleCloseVideo"/>
 </template>
 
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-// import { ImagePreview } from "vant";
+import { ImagePreview } from "vant";
 import bushSystemIcon1 from '@/assets/images/bush-system-icon1.png'
 import bushSystemIcon2 from '@/assets/images/bush-system-icon2.png'
 import bushSystemIcon3 from '@/assets/images/bush-system-icon3.png'
@@ -51,8 +52,11 @@ import http from '@/utils/http'
 
 const state = reactive({
   videoPlayVisible: false,
-  videoSrc: 'https://asfile.donganzichan.cn/assets/static/video/home-video_x264.mp4'
+  videoSrc: 'https://asfile.donganzichan.cn/assets/static/video/home-video_x264.mp4',
+  bodyTop: 0
 })
+
+
 
 const latestList = ref([])
 const fetchLatestDevelop = async () => {
@@ -91,13 +95,42 @@ const items = ref([
 ])
 
 const router = useRouter()
-const goPage = (item) => {
+const goPage = item => {
   router.push({ path: item.path })
+}
+
+// 视频蒙层弹出时，禁止蒙层底部滑动
+const handleStopScroll = () => {
+  state.top = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `${-state.top}px`;
+}
+
+// 蒙层关闭时调用的解除底部滑动锁定
+const handleOpenScroll = () => {
+  document.body.style.position = '';
+  document.body.style.top = '';
+  window.scrollTo(0, state.top); // 回到原先的top
 }
 
 const handlePlay = () => {
   state.videoPlayVisible = true
-  console.log(state.videoPlayVisible)
+  handleStopScroll();
+  setTimeout(()=>{
+    // 获取当前可视页面的高度
+    const curViewHeight = document.getElementsByClassName('video_play_box')[0].offsetHeight
+    // 设置video弹出时的位置.
+    const videoElement = document.getElementsByClassName('video-play')[0]
+    videoElement.style.top = `${(curViewHeight - videoElement.clientHeight) / 2}px`
+  },1)
+}
+// 关闭小视频事件
+const handleCloseVideo = () => {
+  // 释放被锁定的底部滑动事件
+  handleOpenScroll()
+  // 重置video播放进度
+  document.getElementsByClassName('videoSelf')[0].currentTime = 0
+  state.videoPlayVisible = false
 }
 
 </script>
@@ -230,13 +263,34 @@ const handlePlay = () => {
   }
 }
 .video-play {
-  position: fixed;
-  top: 0;
+  position: absolute;
   width: 100%;
+  video {
+    position: relative;
+    width: 100%;
+    z-index: 2008;
+  }
 }
 .video_play_box {
-  position: relative;
-  z-index: 9999;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0, .9);
+  z-index: 2000;
+}
+.video-content {
+  span {
+    position: absolute;
+    left: 5%;
+    top: 4%;
+    z-index: 8888;
+    i {
+      color: white;
+      font-size: 40px;
+    }
+  }
 }
 @-webkit-keyframes move {
   25% {
