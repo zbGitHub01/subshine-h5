@@ -6,7 +6,7 @@
     van-swipe-item
       img.swipe-img(src="@/assets/images/banner2.png")
     van-swipe-item.video_box
-      img.swipe-img(src="@/assets/images/video_bkg.png" @click="handlePlay")
+      img.swipe-img(:src="state.video_bkg" @click="handlePlay")
   .bush-system-wrap
     .title 东岸业务体系
     .items
@@ -19,7 +19,7 @@
     .title 数字科技助力青年成长
     p.paragraph 东岸科技是一家国有参股的集团公司，是一家以金融数字科技为核心领域，以资产管理为应用场景，以430万用户大数据为依托的科技型企业。面向银行、AMC、持牌小贷机构等上游客户，东岸科技提供不良资产处置管理、资产评估定价、一体化数字决策处置系统等服务，用数字科技的时段，深化个贷不良行业数智化转型，重塑资产管理的新模式。同时，东岸科技为下游需要帮助的阶段性债务受压青年输出成长方案。截止目前，东岸科技通过首创勾销债务管理平台、成立调解中心、设立“青年成长阳光工程”等方式，成功帮助全国31万+年青人摆脱债务危机，并为其提供教育、就业等帮扶实现全面成长，助力他们更好地回归经济社会发展的正常轨道。
   WalkLantern
-  .latestDevelop
+  .latestDevelop 
     .title 最新动态
     .card-list
       .card(v-for="item in latestList" :key="item.id")
@@ -42,6 +42,7 @@ import bushSystemIcon2 from '@/assets/images/bush-system-icon2.png'
 import bushSystemIcon3 from '@/assets/images/bush-system-icon3.png'
 import bushSystemIcon4 from '@/assets/images/bush-system-icon4.png'
 import bushSystemIcon5 from '@/assets/images/bush-system-icon5.png'
+import video_bkg from '@/assets/images/video_bkg.png'
 import WalkLantern from '@/components/WalkLantern/index.vue'
 
 import http from '@/utils/http'
@@ -53,7 +54,8 @@ import http from '@/utils/http'
 const state = reactive({
   videoPlayVisible: false,
   videoSrc: 'https://asfile.donganzichan.cn/assets/static/video/home-video_x264.mp4',
-  bodyTop: 0
+  bodyTop: 0,
+  video_bkg
 })
 
 
@@ -65,7 +67,17 @@ const fetchLatestDevelop = async () => {
     latestList.value = data.data
   }
 }
+const getHomeVideoCategory = async () => {
+  const { code, data } = await http.get('/api/advantage/findPage', { page: 1, pageSize: 10, CId: '12' })
+  if (code === 200) {
+    const dataArr = data.data
+    state.videoSrc = dataArr[0].videoUrl
+    state.video_bkg = dataArr[0].phonePicture
+  }
+}
 fetchLatestDevelop()
+getHomeVideoCategory()
+
 const items = ref([
   {
     icon: bushSystemIcon1,
